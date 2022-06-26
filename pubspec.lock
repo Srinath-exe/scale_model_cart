@@ -167,13 +167,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0-dev.1"
-  flutter_statusbarcolor:
-    dependency: "direct main"
-    description:
-      name: flutter_statusbarcolor
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.3"
   flutter_svg:
     dependency: transitive
     description:
@@ -329,6 +322,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
+  statusbarz:
+    dependency: "direct main"
+    description:
+      name: statusbarz
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.11"
   stream_channel:
     dependency: transitive
     description:

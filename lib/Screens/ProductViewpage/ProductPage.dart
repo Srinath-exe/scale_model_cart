@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scale_model_cart/Models/tempPrdModel.dart';
 import 'package:scale_model_cart/Screens/Cartpage/Cart.dart';
+import 'package:scale_model_cart/constants/constants.dart';
 
 import 'package:scale_model_cart/widgets/productCard.dart';
 import 'package:scale_model_cart/widgets/productImage.dart';
@@ -62,38 +63,7 @@ class _ProductPageState extends State<ProductPage> {
             child: Container(
           child: Column(children: [
             appbar(),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        child: Text(
-                          "FORD GT40 MKI - LE MANS - WINNER",
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.w500),
-                          textScaleFactor: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Scale - 1:18",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey[700]),
-                        textScaleFactor: 1,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+
             show ? Container() : prd_img(),
             // Padding(
             //     padding:
@@ -442,69 +412,58 @@ class Prod_detailsState extends State<Prod_details> {
   bool exapnded = true;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  "PRODUCT DETAILS",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  textScaleFactor: 1,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.015,
-            ),
-            exapnded
-                ? Text(
-                    products[1].details,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                    textScaleFactor: 1,
-                    maxLines: 3,
-                  )
-                : Text(
-                    products[1].details,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          exapnded = !exapnded;
+        });
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 2000),
+        curve: Curves.easeIn,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Details",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white.withOpacity(0.8),
+                        fontWeight: FontWeight.w500),
                     textScaleFactor: 1,
                   ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.008,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      exapnded = !exapnded;
-                    });
-                  },
-                  child: Container(
-                    child: Text(
-                      exapnded ? "See More" : "Show Less",
+                  !exapnded
+                      ? Icon(
+                          Icons.arrow_drop_up,
+                          color: Colors.white.withOpacity(0.8),
+                          size: 24,
+                        )
+                      : Icon(
+                          Icons.arrow_drop_down,
+                          size: 24,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.015,
+              ),
+              exapnded
+                  ? Container()
+                  : Text(
+                      products[1].details,
                       style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.w500),
+                          fontSize: 14,
+                          color: Colors.white.withOpacity(0.7),
+                          fontWeight: FontWeight.w400),
                       textScaleFactor: 1,
                     ),
-                  ),
-                ),
-                exapnded
-                    ? Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey[600],
-                        size: 15,
-                      )
-                    : Icon(Icons.expand_less,
-                        color: Colors.grey[600], size: 20),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -527,11 +486,10 @@ class _HighlightsState extends State<Highlights> {
       onTap: () {
         setState(() {
           exapnded = !exapnded;
-          // controller.animateTo(controller.position.maxScrollExtent, duration:Duration(milliseconds:1000), curve:Curves.easeIn);
         });
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 0),
         child: Container(
             child: Column(
           children: [
@@ -539,15 +497,23 @@ class _HighlightsState extends State<Highlights> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "HIGHLIGHTS",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  "Highlights",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white.withOpacity(0.8),
+                      fontWeight: FontWeight.w500),
                   textScaleFactor: 1,
                 ),
-                exapnded
-                    ? Icon(Icons.arrow_forward_ios)
+                !exapnded
+                    ? Icon(
+                        Icons.arrow_drop_up,
+                        color: Colors.white.withOpacity(0.8),
+                        size: 24,
+                      )
                     : Icon(
-                        Icons.expand_more,
-                        size: 35,
+                        Icons.arrow_drop_down,
+                        size: 24,
+                        color: Colors.white.withOpacity(0.8),
                       ),
               ],
             ),
@@ -574,9 +540,10 @@ class _HighlightsState extends State<Highlights> {
         Row(
           children: [
             Text(
-              "-" + txt,
+              "- " + txt,
               style: TextStyle(
                 fontSize: 15,
+                color: Colors.white.withOpacity(0.7),
               ),
               textAlign: TextAlign.left,
             ),
@@ -604,136 +571,125 @@ class _SpecificationsState extends State<Specifications> {
           exapnded = !exapnded;
         });
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
-        child: Container(
-            child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "SPECIFICATIONS",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  textScaleFactor: 1,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.009,
-            ),
-            Row(
-              children: [
-                specs("Ford", "BRAND", Colors.orange,
-                    Icons.directions_car_filled_outlined),
-                specs(
-                  "1947-1970",
-                  "PERIOD",
-                  Colors.orange,
-                  Icons.history_outlined,
-                ),
-                specs(
-                  "1966",
-                  "YEAR",
-                  Colors.orange,
-                  Icons.schedule_rounded,
-                ),
-                // specs(),
-              ],
-            ),
-            Row(
-              children: [
-                specs(
-                    "USA", "MODEL ORIGIN", Colors.orange, Icons.flag_outlined),
-                specs(
-                  "1:18",
-                  "SCALE",
-                  Colors.orange,
-                  Icons.straighten_outlined,
-                ),
-                specs("Metal", "MATERIAL", Colors.orange,
-                    Icons.build_circle_outlined),
-                // specs(),
-              ],
-            ),
-            Row(
-              children: [
-                specs("Blue", "COLOR", Colors.blue, Icons.color_lens),
-                specs("Solido", "MAKE", Colors.orange, Icons.business_outlined),
-                specs(
-                  "Racing-F1/GP",
-                  "THEME",
-                  Colors.orange,
-                  Icons.color_lens_outlined,
-                ),
-                // specs(),
-              ],
-            ),
-            // Row(
-            //   children: [
-
-            //   ],
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                specs(
-                  "12.5 X 6 X 5.5",
-                  "BOX DIMENSIONS (INCH)",
-                  Colors.orange,
-                  Icons.view_in_ar_outlined,
-                ),
-              ],
-            ),
-          ],
-        )),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 2000),
+        curve: Curves.easeIn,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Specifications",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white.withOpacity(0.8),
+                        fontWeight: FontWeight.w500),
+                    textScaleFactor: 1,
+                  ),
+                  !exapnded
+                      ? Icon(
+                          Icons.arrow_drop_up,
+                          color: Colors.white.withOpacity(0.8),
+                          size: 24,
+                        )
+                      : Icon(
+                          Icons.arrow_drop_down,
+                          size: 24,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.015,
+              ),
+              !exapnded
+                  ? Wrap(
+                      children: [
+                        specs("Ford", "BRAND", Colors.orange,
+                            Icons.directions_car_filled_outlined),
+                        specs(
+                          "1947-1970",
+                          "PERIOD",
+                          Colors.orange,
+                          Icons.history_outlined,
+                        ),
+                        specs(
+                          "1966",
+                          "YEAR",
+                          Colors.orange,
+                          Icons.schedule_rounded,
+                        ),
+                        specs("USA", "MODEL ORIGIN", Colors.orange,
+                            Icons.flag_outlined),
+                        specs(
+                          "1:18",
+                          "SCALE",
+                          Colors.orange,
+                          Icons.straighten_outlined,
+                        ),
+                        specs("Metal", "MATERIAL", Colors.orange,
+                            Icons.build_circle_outlined),
+                        specs("Blue", "COLOR", Colors.blue, Icons.color_lens),
+                        specs("Solido", "MAKE", Colors.orange,
+                            Icons.business_outlined),
+                        specs(
+                          "Racing-F1/GP",
+                          "THEME",
+                          Colors.orange,
+                          Icons.color_lens_outlined,
+                        ),
+                        specs(
+                          "12.5 X 6 X 5.5",
+                          "BOX DIMENSIONS (INCH)",
+                          Colors.orange,
+                          Icons.view_in_ar_outlined,
+                        ),
+                      ],
+                    )
+                  : Container()
+            ],
+          ),
+        ),
       ),
     );
   }
 
   Widget specs(String txt, String txt2, Color col, IconData img) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
       child: Container(
-        color: Colors.transparent,
-        width: MediaQuery.of(context).size.width * 0.30,
+        decoration: BoxDecoration(
+            color: secondary, borderRadius: BorderRadius.circular(10)),
+        width: MediaQuery.of(context).size.width * 0.4,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0),
-            child: CircleAvatar(
-              //radius: 20,
-              child: Center(
-                  child: Icon(
-                img,
-                color: Color(0xFF679EC0),
-                size: 30,
-              )),
-            ),
-          ),
-
-          // SizedBox(
-          //   width: MediaQuery.of(context).size.width * 0.02,
-          // ),
           Container(
             width: MediaQuery.of(context).size.width * 0.30,
-            // height: MediaQuery.of(context).size.height * 0.05,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  txt,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
-                  textScaleFactor: 1,
-                ),
-                Text(
-                  txt2,
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[500]),
-                  textScaleFactor: 1,
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    txt,
+                    style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.white.withOpacity(0.7),
+                        fontWeight: FontWeight.w400),
+                    textScaleFactor: 1,
+                  ),
+                  Text(
+                    txt2,
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[500]),
+                    textScaleFactor: 1,
+                  ),
+                ],
+              ),
             ),
           )
         ]),

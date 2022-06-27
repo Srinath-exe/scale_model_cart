@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:scale_model_cart/Models/tempPrdModel.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
+import 'package:scale_model_cart/Screens/ProductViewpage/prod_image_page.dart';
 import 'package:scale_model_cart/widgets/buttons.dart';
 
 import '../../constants/constants.dart';
 import '../../widgets/back_button.dart';
+import '../../widgets/productImage.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -79,7 +81,7 @@ class ProductScreenState extends State<ProductScreen> {
                   top: 40,
                   left: 2,
                   child: Container(
-                    height: GetSize().height(context) * 0.32,
+                    // height: GetSize().height(context) * 0.32,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -118,7 +120,25 @@ class ProductScreenState extends State<ProductScreen> {
                                   color: Colors.white,
                                 ),
                           width: 55,
-                        )
+                        ),
+                        ThemeButton(
+                          text: "text",
+                          height: 65,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                              ),
+                              Text("4.5")
+                            ],
+                          ),
+                          width: 55,
+                        ),
                       ],
                     ),
                   ),
@@ -127,6 +147,33 @@ class ProductScreenState extends State<ProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            transitionDuration: Duration(milliseconds: 1000),
+                            pageBuilder: (BuildContext context,
+                                Animation<double> animation,
+                                Animation<double> secondaryAnimation) {
+                              return ImagesScreen(
+                                product: p1,
+                                index: _curr,
+                              );
+                            },
+                            transitionsBuilder: (BuildContext context,
+                                Animation<double> animation,
+                                Animation<double> secondaryAnimation,
+                                Widget child) {
+                              return Align(
+                                alignment: Alignment.topRight,
+                                child: FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
                       onVerticalDragUpdate: (details) {
                         int sensitivity = 8;
                         if (details.delta.dy > sensitivity) {
@@ -172,7 +219,8 @@ class ProductScreenState extends State<ProductScreen> {
                                   squeeze: 0.65,
                                   children: List.generate(
                                           p1.img.length, (index) => index)
-                                      .map((index) => image(p1.img[index]))
+                                      .map((index) =>
+                                          image(index, p1.img[index]))
                                       .toList(),
                                 ),
                               ),
@@ -183,7 +231,7 @@ class ProductScreenState extends State<ProductScreen> {
                             left: 0,
                             child: Column(
                               children: List.generate(
-                                  4,
+                                  p1.img.length,
                                   (index) => indicator(
                                       _curr == (index) ? true : false)),
                             ),
@@ -194,27 +242,36 @@ class ProductScreenState extends State<ProductScreen> {
                   ],
                 ),
                 Positioned(
-                    right: 40,
-                    bottom: 20,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "\$ 1,500",
-                          style: TextStyle(
-                              color: secondary,
-                              fontSize: 42,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "Price",
-                          style: TextStyle(
-                              color: secondary.withOpacity(0.5),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    )),
+                  right: 40,
+                  bottom: 20,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "\$ 1,500",
+                        style: TextStyle(
+                            color: secondary,
+                            fontSize: 42,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        "Price",
+                        style: TextStyle(
+                            color: secondary.withOpacity(0.5),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                    top: 0,
+                    right: 100,
+                    child: Container(
+                      width: GetSize().width(context) * 0.4,
+                      height: 200,
+                      child: Image.asset("assets/images/offer.png"),
+                    ))
               ],
             ),
             SizedBox(
@@ -293,11 +350,11 @@ class ProductScreenState extends State<ProductScreen> {
     );
   }
 
-  Widget image(String url) {
+  Widget image(int index, String url) {
     return Container(
       height: GetSize().height(context) * 0.3,
       width: GetSize().height(context) * 0.3,
-      child: Image.asset(url),
+      child: Hero(tag: index, child: Image.asset(url)),
     );
   }
 }

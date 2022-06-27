@@ -6,6 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scale_model_cart/Models/tempPrdModel.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 
+import '../Screens/HomePage/productPage.dart';
+
 class CardScrollWidget extends StatefulWidget {
   List<Product> products;
 
@@ -194,7 +196,11 @@ class _CardScrollWidgetState extends State<CardScrollWidget> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              ProductPage()));
+                                                              ProductPage(
+                                                          title:
+                                                              "New Collection",
+                                                        ),
+                                                      ));
                                                 });
                                               }),
                                         )

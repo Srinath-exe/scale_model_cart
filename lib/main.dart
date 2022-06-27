@@ -4,6 +4,7 @@ import 'package:scale_model_cart/constants/color_schemes.g.dart';
 import 'package:scale_model_cart/constants/constants.dart';
 import 'package:statusbarz/statusbarz.dart';
 
+import 'Screens/HomePage/productPage.dart';
 import 'Screens/ProductViewpage/product_detail_view.dart';
 
 void main() {
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
           platform: TargetPlatform.iOS,
           colorScheme: lightColorScheme,
         ),
-        home: ProductScreen(),
+        home: ProductPage(
+          title: "New Collection",
+        ),
       ),
     );
   }

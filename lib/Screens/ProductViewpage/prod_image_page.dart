@@ -36,6 +36,24 @@ class _ImagesScreenState extends State<ImagesScreen> {
       backgroundColor: accent,
       body: Stack(
         children: [
+          Positioned(
+              top: 100,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: GetSize().height(context) * 0.2,
+                    width: GetSize().width(context),
+                    child: Image.asset(
+                      "assets/images/base.png",
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ],
+              )),
           Center(
             child: PageView.builder(
                 onPageChanged: ((value) {
@@ -71,6 +89,38 @@ class _ImagesScreenState extends State<ImagesScreen> {
                 "assets/images/Frame3.png",
                 fit: BoxFit.fitWidth,
               ),
+            ),
+          ),
+          Positioned(
+            top: 70,
+            left: 15,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  child: Text(
+                    "FORD GT40 MKI - LE MANS - WINNER",
+                    style: TextStyle(
+                        color: secondary,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500),
+                    textScaleFactor: 1,
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "Scale - 1:18",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: secondary.withOpacity(0.5)),
+                  textScaleFactor: 1,
+                ),
+              ],
             ),
           ),
           Positioned(

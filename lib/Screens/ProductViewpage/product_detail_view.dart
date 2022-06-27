@@ -5,10 +5,12 @@ import 'package:scale_model_cart/Models/tempPrdModel.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/prod_image_page.dart';
 import 'package:scale_model_cart/widgets/buttons.dart';
+import 'package:scale_model_cart/widgets/productCard.dart';
 
 import '../../constants/constants.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/productImage.dart';
+import '../HomePage/productPage.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -86,7 +88,15 @@ class ProductScreenState extends State<ProductScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CustomBackButton(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductPage(
+                                    title: "New Collection",
+                                  ),
+                                ));
+                          },
                         ),
                         ThemeButton(
                           text: "text",
@@ -115,10 +125,8 @@ class ProductScreenState extends State<ProductScreen> {
                                   Icons.add_shopping_cart_rounded,
                                   color: Colors.green,
                                 )
-                              : Icon(
-                                  Icons.add_shopping_cart_rounded,
-                                  color: Colors.white,
-                                ),
+                              : Icon(Icons.add_shopping_cart_rounded,
+                                  color: light),
                           width: 55,
                         ),
                         ThemeButton(
@@ -266,11 +274,27 @@ class ProductScreenState extends State<ProductScreen> {
                 ),
                 Positioned(
                     top: 0,
-                    right: 100,
+                    right: 0,
                     child: Container(
-                      width: GetSize().width(context) * 0.4,
-                      height: 200,
+                      width: GetSize().width(context) * 0.6,
+                      height: 160,
                       child: Image.asset("assets/images/offer.png"),
+                    )),
+                Positioned(
+                    top: 10,
+                    right: 0,
+                    child: Container(
+                      width: GetSize().width(context) * 0.6,
+                      height: 160,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "15% off",
+                        style: TextStyle(
+                            color: secondary,
+                            fontSize: 16,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ))
               ],
             ),
@@ -287,7 +311,7 @@ class ProductScreenState extends State<ProductScreen> {
                     child: Text(
                       "FORD GT40 MKI - LE MANS - WINNER",
                       style: TextStyle(
-                          color: Colors.white,
+                          color: light,
                           fontSize: 24,
                           fontWeight: FontWeight.w500),
                       textScaleFactor: 1,
@@ -323,6 +347,83 @@ class ProductScreenState extends State<ProductScreen> {
                   Specifications(),
                   Prod_details(),
                   Highlights(),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "LATEST",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                textScaleFactor: 1,
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  // height: MediaQuery.of(context).size.height*0.5,
+                                  //  color: Colors.red,
+                                  child: Column(
+                                    children: [
+                                      ProductCard(
+                                        imglink:
+                                            "https://www.scalemodelcart.com/usrfile/40002-18_Norev_Mercedes_Maybach_S_650_a.jpg",
+                                        name: "Mercedes Maybach S 650",
+                                        price: 13880.00,
+                                      ),
+                                      ProductCard(
+                                        imglink:
+                                            "https://www.scalemodelcart.com/usrfile/40002-18_Solido_S1803004_Ford_GT40_a.jpg",
+                                        name: "Ford GT40",
+                                        price: 7880.00,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  //height: MediaQuery.of(context).size.height*0.7,
+                                  // color: Colors.red,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.09),
+                                      ProductCard(
+                                        imglink:
+                                            "https://www.scalemodelcart.com/usrfile/40002-18_CMR175_Mazda_787B_LeMans_Gachot_a.jpg",
+                                        name: "Mazda 787B LeMans",
+                                        price: 9855.00,
+                                      ),
+                                      ProductCard(
+                                        imglink:
+                                            "https://www.scalemodelcart.com/usrfile/40002-18_Shelby_Ford_GT40_MK2_LeMans_a.jpg",
+                                        name: "Shelby Ford GT40 MK II LeMans ",
+                                        price: 23000.00,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 200,
                   )
@@ -337,17 +438,16 @@ class ProductScreenState extends State<ProductScreen> {
 
   indicator(bool active) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: AnimatedContainer(
-        curve: Curves.easeIn,
-        duration: Duration(milliseconds: 500),
-        height: active ? 70 : 40,
-        width: active ? 3 : 2,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: active ? secondary : Colors.white),
-      ),
-    );
+        padding: const EdgeInsets.all(8.0),
+        child: AnimatedContainer(
+          curve: Curves.easeIn,
+          duration: Duration(milliseconds: 500),
+          height: active ? 70 : 40,
+          width: active ? 3 : 2,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: active ? secondary : light),
+        ));
   }
 
   Widget image(int index, String url) {

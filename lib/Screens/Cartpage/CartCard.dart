@@ -3,6 +3,8 @@ import 'package:flutter_number_picker/flutter_number_picker.dart';
 
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 
+import '../HomePage/productPage.dart';
+
 class CartCard extends StatefulWidget {
   String img;
   double price;
@@ -42,8 +44,13 @@ class _CartCardState extends State<CartCard> {
         child: GestureDetector(
           onTap: () {
             setState(() {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProductPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductPage(
+                      title: "New Collection",
+                    ),
+                  ));
             });
           },
           child: Container(

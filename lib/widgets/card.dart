@@ -8,6 +8,8 @@ import 'package:scale_model_cart/Models/tempPrdModel.dart';
 
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 
+import '../Screens/HomePage/productPage.dart';
+
 class HomeCard extends StatefulWidget {
   List<Product> products;
 
@@ -158,7 +160,10 @@ class _HomeCardState extends State<HomeCard> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ProductPage()));
+                                                      ProductPage(
+                                                  title: "New Collection",
+                                                ),
+                                              ));
                                         });
                                       }),
                                 )

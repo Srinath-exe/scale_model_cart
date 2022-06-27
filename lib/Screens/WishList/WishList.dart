@@ -5,6 +5,8 @@ import 'package:scale_model_cart/Screens/HomePage/home.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 import 'package:scale_model_cart/widgets/WishList_card.dart';
 
+import '../HomePage/productPage.dart';
+
 class WishList extends StatefulWidget {
   WishList({Key? key}) : super(key: key);
 
@@ -35,7 +37,10 @@ class _WishListState extends State<WishList> {
                             "https://www.scalemodelcart.com/usrfile/40002-18_Norev_Mercedes_Maybach_S_650_a.jpg",
                         price: 13880.00,
                         name: 'Mercedes Maybach S 650'),
-                openBuilder: (context, _) => ProductPage()),
+                openBuilder: (context, _) =>  ProductPage(
+                title: "New Collection",
+              ),
+            ),
             OpenContainer(
                 closedColor: Colors.white70,
                 transitionDuration: Duration(seconds: 1),
@@ -45,7 +50,9 @@ class _WishListState extends State<WishList> {
                             "https://www.scalemodelcart.com/usrfile/40002-18_Solido_S1803004_Ford_GT40_a.jpg",
                         price: 7880.00,
                         name: 'Ford GT40'),
-                openBuilder: (context, _) => ProductPage()),
+                openBuilder: (context, _) =>  ProductPage(
+                                    title: "New Collection",
+                                  ),),
             OpenContainer(
                 closedColor: Colors.white70,
                 transitionDuration: Duration(seconds: 1),
@@ -55,7 +62,9 @@ class _WishListState extends State<WishList> {
                             "https://www.scalemodelcart.com/usrfile/40002-18_Solido_S1803004_Ford_GT40_a.jpg",
                         price: 7880.00,
                         name: 'Ford GT40'),
-                openBuilder: (context, _) => ProductPage()),
+                openBuilder: (context, _) =>  ProductPage(
+                                    title: "New Collection",
+                                  ),),
             OpenContainer(
                 closedColor: Colors.white70,
                 transitionDuration: Duration(seconds: 1),
@@ -66,7 +75,9 @@ class _WishListState extends State<WishList> {
                       name: "Mazda 787B LeMans",
                       price: 9855.00,
                     ),
-                openBuilder: (context, _) => ProductPage()),
+                openBuilder: (context, _) =>  ProductPage(
+                                    title: "New Collection",
+                                  ),),
 
             OpenContainer(
                 closedColor: Colors.white70,
@@ -77,7 +88,9 @@ class _WishListState extends State<WishList> {
                             "https://www.scalemodelcart.com/usrfile/40011-18_AM_Vulcan_a.jpeg",
                         price: 12000.0,
                         name: 'Aston Martin Valcun'),
-                openBuilder: (context, _) => ProductPage()),
+                openBuilder: (context, _) =>  ProductPage(
+                                    title: "New Collection",
+                                  ),),
 
             OpenContainer(
                 closedColor: Colors.white70,
@@ -88,7 +101,9 @@ class _WishListState extends State<WishList> {
                             "https://www.scalemodelcart.com/usrfile/40002-18_Norev183497_Mb_AMG_GT_S_a.jpg",
                         price: 8655.0,
                         name: 'Mercedes Benz AMG GT-S'),
-                openBuilder: (context, _) => ProductPage()),
+                openBuilder: (context, _) =>  ProductPage(
+                                    title: "New Collection",
+                                  ),),
 
             //  WishListCard(
             //         img:

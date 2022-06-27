@@ -6,6 +6,8 @@ import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../Screens/HomePage/productPage.dart';
+
 List<Product> products = [
   Product(
       name: "Fiat 131 Panorama - Alitalia",
@@ -80,7 +82,10 @@ class _ProductImageState extends State<ProductImage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ProductPage()));
+                                    builder: (context) => ProductPage(
+                                      title: "New Collection",
+                                    ),
+                                  ));
                             });
                           },
                           icon: Icon(

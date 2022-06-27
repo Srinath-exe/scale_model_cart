@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 
+import '../Screens/HomePage/productPage.dart';
+
 class ProductCard extends StatefulWidget {
   String imglink;
   String name;
@@ -30,7 +32,10 @@ class _ProductCardState extends State<ProductCard> {
           onTap: () {
             setState(() {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProductPage()));
+                  MaterialPageRoute(builder: (context) =>  ProductPage(
+                      title: "New Collection",
+                    ),
+                  ));
             });
           },
           child: Ink(

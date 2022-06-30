@@ -9,110 +9,132 @@ import '../ProductViewpage/product_detail_view.dart';
 class ProductTile extends StatefulWidget {
   String imglink;
   String name;
-
+  double? scale;
   double price;
-  ProductTile({required this.imglink, required this.name, required this.price});
+  ProductTile(
+      {required this.imglink,
+      required this.name,
+      required this.price,
+      this.scale = 1});
 
   @override
   _ProductTileState createState() => _ProductTileState();
 }
 
-// onTap: () {
-//   setState(() {
-//     Navigator.push(context,
-//         MaterialPageRoute(builder: (context) => ProductScreen()));
-//   });
-// },
 class _ProductTileState extends State<ProductTile> {
   bool _isFavorite = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+        padding: widget.scale == 1
+            ? EdgeInsets.symmetric(horizontal: 32.0, vertical: 8)
+            : EdgeInsets.symmetric(horizontal: 12.0, vertical: 0),
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProductScreen()));
+            });
+          },
+          child: Transform.scale(
+            scale: widget.scale,
+            child: Stack(
+              clipBehavior: Clip.none,
               children: [
-                Material(
-                  color: Colors.transparent,
-                  elevation: 50,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    width: GetSize().width(context) * 0.35,
-                    height: GetSize().width(context) * 0.35,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey.withOpacity(0.3)),
-                    alignment: Alignment.bottomRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _isFavorite = !_isFavorite;
-                        });
-                      },
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Material(
+                      color: Colors.transparent,
+                      elevation: 50,
+                      borderRadius: BorderRadius.circular(20),
                       child: Container(
-                          width: GetSize().width(context) * 0.12,
-                          height: GetSize().width(context) * 0.12,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20)),
-                              color: Colors.grey.withOpacity(0.3)),
-                          child: AnimatedSwitcher(
-                            switchInCurve: Curves.elasticIn,
-                            duration: Duration(milliseconds: 1000),
-                            child: _isFavorite
-                                ? Icon(
-                                    Icons.favorite_rounded,
-                                    color: Colors.pink,
-                                  )
-                                : Icon(
-                                    Icons.favorite_outline_rounded,
-                                    color: Colors.grey,
-                                  ),
-                          )),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.3,
-                        child: Text(
-                          widget.name,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: light.withOpacity(0.7),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500),
-                          textScaleFactor: 1,
+                        width: GetSize().width(context) * 0.35,
+                        height: GetSize().width(context) * 0.35,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: RadialGradient(
+                            center: Alignment(0.2, 0.2),
+                            colors: [
+                              // Color.fromRGBO(3, 235, 255, 1),
+                              // Color.fromRGBO(152, 70, 242, 1),
+                              Colors.grey.withOpacity(0.3),
+                              Colors.grey.withOpacity(0.2)
+                            ],
+                            radius: 0.5,
+                          ),
+                          // color: Colors.grey.withOpacity(0.3)
+                        ),
+                        alignment: Alignment.bottomRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isFavorite = !_isFavorite;
+                            });
+                          },
+                          child: Container(
+                              width: GetSize().width(context) * 0.12,
+                              height: GetSize().width(context) * 0.12,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20)),
+                                  color: Colors.grey.withOpacity(0.3)),
+                              child: AnimatedSwitcher(
+                                switchInCurve: Curves.elasticIn,
+                                duration: Duration(milliseconds: 1000),
+                                child: _isFavorite
+                                    ? Icon(
+                                        Icons.favorite_rounded,
+                                        color: Colors.pink,
+                                      )
+                                    : Icon(
+                                        Icons.favorite_outline_rounded,
+                                        color: Colors.grey,
+                                      ),
+                              )),
                         ),
                       ),
-                      SizedBox(
-                        height: 4,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0.0, vertical: 10),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: Text(
+                              widget.name,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: light.withOpacity(0.7),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500),
+                              textScaleFactor: 1,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            '\$ ' + widget.price.toString(),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: accent),
+                            textScaleFactor: 1,
+                          ),
+                        ],
                       ),
-                      Text(
-                        '\$ ' + widget.price.toString(),
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: accent),
-                        textScaleFactor: 1,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+                Positioned(left: -20, top: -20, child: img(widget.imglink))
               ],
             ),
-            Positioned(left: -20, top: -20, child: img(widget.imglink))
-          ],
+          ),
         ));
   }
 
@@ -121,7 +143,7 @@ class _ProductTileState extends State<ProductTile> {
         width: MediaQuery.of(context).size.width * 0.50,
         // height: MediaQuery.of(context).size.height * 0.14,
         child: Transform.rotate(
-          angle: -0.21,
+          angle: 0,
           child: Image.asset(
             img,
             fit: BoxFit.fill,

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:scale_model_cart/Screens/Category/categoryPage.dart';
+import 'package:scale_model_cart/Screens/HomePage/productPage.dart';
 import 'package:scale_model_cart/constants/constants.dart';
 import 'package:scale_model_cart/widgets/HomeDrawer.dart';
 import 'package:scale_model_cart/widgets/card.dart';
@@ -31,7 +32,7 @@ class _HomeState extends State<Home> {
       child: Container(
         color: Colors.white,
         child: Container(
-          decoration: BoxDecoration(color: primaryDark
+          decoration: BoxDecoration(color: secondary
               // gradient: LinearGradient(
               //     colors: [primaryDark],
               //     begin: Alignment.bottomCenter,
@@ -82,82 +83,23 @@ class _HomeState extends State<Home> {
                     ),
                     banner(),
                     catergory(),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text("Current Release",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 28.0,
-                                  fontFamily: "Calibre-Semibold",
-                                  letterSpacing: 1.0,
-                                  fontWeight: FontWeight.bold)),
-                          // Text("25+ Stories",
-                          //     style: TextStyle(color: Colors.blueAccent))
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFff6e6e),
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 22.0, vertical: 6.0),
-                                child: Text("Latest",
-                                    style: TextStyle(color: Colors.white)),
+                    Container(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Latest",
+                                style: TextStyle(
+                                    color: light.withOpacity(0.8),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
+                                textScaleFactor: 1,
                               ),
-                            ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 15.0,
-                          ),
-                          Text("25+ new",
-                              style: TextStyle(color: Colors.blueAccent))
+                          niceRow()
                         ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: HomeCard(
-                        products: products,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text("Favourite",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 28.0,
-                                  fontFamily: "Calibre-Semibold",
-                                  letterSpacing: 1.0,
-                                  fontWeight: FontWeight.bold)),
-                          IconButton(
-                            icon: Icon(
-                              Icons.sanitizer,
-                              size: 12.0,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {},
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: HomeCard(
-                        products: products,
                       ),
                     ),
                   ],

@@ -5,7 +5,7 @@ import '../constants/constants.dart';
 enum BackButtonTheme { light, dark, green }
 
 ThemeValues getTheme(BackButtonTheme theme) {
-  ThemeValues light = ThemeValues(primary: primary, secondary: secondary);
+  ThemeValues light = ThemeValues(primary: primaryDark, secondary: secondary);
   ThemeValues dark = ThemeValues(primary: Colors.white, secondary: secondary);
 
   switch (theme) {

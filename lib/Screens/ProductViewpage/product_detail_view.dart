@@ -49,7 +49,7 @@ class ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryDark,
+      backgroundColor: secondary,
       floatingActionButton: ThemeButton(
         text: "",
         child: Padding(
@@ -105,6 +105,7 @@ class ProductScreenState extends State<ProductScreen> {
                               fav = !fav;
                             });
                           },
+                          elevation: 10,
                           child: fav
                               ? Icon(
                                   Icons.favorite_rounded,
@@ -114,6 +115,7 @@ class ProductScreenState extends State<ProductScreen> {
                           width: 55,
                         ),
                         ThemeButton(
+                          elevation: 10,
                           onTap: () {
                             setState(() {
                               cart = !cart;
@@ -187,7 +189,7 @@ class ProductScreenState extends State<ProductScreen> {
                         if (details.delta.dy > sensitivity) {
                           // Down Swipe
                           controller.animateTo(controller.offset - 220,
-                              duration: Duration(milliseconds: 500),
+                              duration: Duration(milliseconds: 300),
                               curve: Curves.easeIn);
                           setState(() {
                             _curr = (controller.offset / 220).toInt() - 1;
@@ -195,7 +197,7 @@ class ProductScreenState extends State<ProductScreen> {
                         } else if (details.delta.dy < -sensitivity) {
                           // Up Swipe
                           controller.animateTo(220 + controller.offset,
-                              duration: Duration(milliseconds: 500),
+                              duration: Duration(milliseconds: 300),
                               curve: Curves.easeIn);
                           setState(() {
                             _curr = (controller.offset / 220).toInt() + 1;
@@ -347,81 +349,26 @@ class ProductScreenState extends State<ProductScreen> {
                   Specifications(),
                   Prod_details(),
                   Highlights(),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 20),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "LATEST",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
-                                textScaleFactor: 1,
-                              ),
-                            ],
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.7,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  // height: MediaQuery.of(context).size.height*0.5,
-                                  //  color: Colors.red,
-                                  child: Column(
-                                    children: [
-                                      ProductCard(
-                                        imglink:
-                                            "https://www.scalemodelcart.com/usrfile/40002-18_Norev_Mercedes_Maybach_S_650_a.jpg",
-                                        name: "Mercedes Maybach S 650",
-                                        price: 13880.00,
-                                      ),
-                                      ProductCard(
-                                        imglink:
-                                            "https://www.scalemodelcart.com/usrfile/40002-18_Solido_S1803004_Ford_GT40_a.jpg",
-                                        name: "Ford GT40",
-                                        price: 7880.00,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  //height: MediaQuery.of(context).size.height*0.7,
-                                  // color: Colors.red,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.09),
-                                      ProductCard(
-                                        imglink:
-                                            "https://www.scalemodelcart.com/usrfile/40002-18_CMR175_Mazda_787B_LeMans_Gachot_a.jpg",
-                                        name: "Mazda 787B LeMans",
-                                        price: 9855.00,
-                                      ),
-                                      ProductCard(
-                                        imglink:
-                                            "https://www.scalemodelcart.com/usrfile/40002-18_Shelby_Ford_GT40_MK2_LeMans_a.jpg",
-                                        name: "Shelby Ford GT40 MK II LeMans ",
-                                        price: 23000.00,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Latest",
+                              style: TextStyle(
+                                  color: light.withOpacity(0.8),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                              textScaleFactor: 1,
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [],
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                        nice()
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -454,7 +401,7 @@ class ProductScreenState extends State<ProductScreen> {
     return Container(
       height: GetSize().height(context) * 0.3,
       width: GetSize().height(context) * 0.3,
-      child: Hero(tag: index, child: Image.asset(url)),
+      child: Hero(tag: url, child: Image.asset(url)),
     );
   }
 }

@@ -100,65 +100,10 @@ class _ProductPageState extends State<ProductPage> {
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 12,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          ProductTile(
-                            imglink: "assets/images/image_01.png",
-                            name: "Mercedes Maybach S 650",
-                            price: 13880.00,
-                          ),
-                          ProductTile(
-                            imglink: "assets/images/image_02.png",
-                            name: "Ford GT40",
-                            price: 7880.00,
-                          ),
-                          ProductTile(
-                            imglink: "assets/images/image_01.png",
-                            name: "Mercedes Maybach S 650",
-                            price: 13880.00,
-                          ),
-                          ProductTile(
-                            imglink: "assets/images/image_08.png",
-                            name: "Ford GT40",
-                            price: 7880.00,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                          ),
-                          ProductTile(
-                            imglink: "assets/images/image_09.png",
-                            name: "Ford GT40",
-                            price: 7880.00,
-                          ),
-                          ProductTile(
-                            imglink: "assets/images/image_02.png",
-                            name: "Ford GT40",
-                            price: 7880.00,
-                          ),
-                          ProductTile(
-                            imglink: "assets/images/image_10.png",
-                            name: "Mercedes Maybach S 650",
-                            price: 13880.00,
-                          ),
-                          ProductTile(
-                            imglink: "assets/images/image_02.png",
-                            name: "Ford GT40",
-                            price: 7880.00,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  cat(),
+                  nice()
                 ],
               ),
             ),
@@ -169,9 +114,220 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   cat() {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
         child: Row(
-      children: [],
-    ));
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: GetSize().width(context) * 0.6,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ac("Sports Car", active: true),
+                    ac("SUV"),
+                    ac("Bikes"),
+                    ac("SUV"),
+                    ac("Bikes")
+                  ],
+                ),
+              ),
+            ),
+            search()
+          ],
+        ),
+      ),
+    );
   }
+
+  ac(String text, {bool? active}) {
+    active == null ? active = false : null;
+    return Padding(
+      padding: const EdgeInsets.only(right: 12.0),
+      child: ActionChip(
+          backgroundColor: active ? light : secondary.withOpacity(0.9),
+          label: Text(
+            text,
+            style:
+                TextStyle(color: !active ? light.withOpacity(0.7) : secondary),
+          ),
+          onPressed: () {}),
+    );
+  }
+
+  search() {
+    return Material(
+      elevation: 50,
+      borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(10),
+          topLeft: Radius.circular(10),
+          bottomLeft: Radius.circular(25),
+          topRight: Radius.circular(30)),
+      color: Colors.grey.withOpacity(0.2),
+      child: Container(
+        height: 50,
+        width: GetSize().width(context) * 0.30,
+        // decoration: BoxDecoration(
+        //     color: accent.withOpacity(0.1),
+        //     borderRadius: BorderRadius.only(
+        //         topRight: Radius.circular(10),
+        //         bottomLeft: Radius.circular(10),
+        //         topLeft: Radius.circular(30),
+        //         bottomRight: Radius.circular(30))),
+        // alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.search_rounded,
+                color: light,
+              ),
+            ),
+            // SizedBox(
+            //   width: GetSize().width(context) * 0.01,
+            // ),
+            Text(
+              "Search...",
+              style: TextStyle(color: light),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+niceRow() {
+  return Column(
+    children: [
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProductTile(
+              scale: 0.8,
+              imglink: "assets/images/image_01.png",
+              name: "Mercedes Maybach S 650",
+              price: 13880.00,
+            ),
+            ProductTile(
+              scale: 0.8,
+              imglink: "assets/images/image_02.png",
+              name: "Ford GT40",
+              price: 7880.00,
+            ),
+            ProductTile(
+              scale: 0.8,
+              imglink: "assets/images/image_01.png",
+              name: "Mercedes Maybach S 650",
+              price: 13880.00,
+            ),
+            ProductTile(
+              scale: 0.8,
+              imglink: "assets/images/image_08.png",
+              name: "Ford GT40",
+              price: 7880.00,
+            ),
+            ProductTile(
+              scale: 0.8,
+              imglink: "assets/images/image_09.png",
+              name: "Ford GT40",
+              price: 7880.00,
+            ),
+            ProductTile(
+              scale: 0.8,
+              imglink: "assets/images/image_02.png",
+              name: "Ford GT40",
+              price: 7880.00,
+            ),
+            ProductTile(
+              scale: 0.8,
+              imglink: "assets/images/image_10.png",
+              name: "Mercedes Maybach S 650",
+              price: 13880.00,
+            ),
+            ProductTile(
+              scale: 0.8,
+              imglink: "assets/images/image_02.png",
+              name: "Ford GT40",
+              price: 7880.00,
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+nice() {
+  return Column(
+    children: [
+      SizedBox(
+        height: 20,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              ProductTile(
+                imglink: "assets/images/image_01.png",
+                name: "Mercedes Maybach S 650",
+                price: 13880.00,
+              ),
+              ProductTile(
+                imglink: "assets/images/image_02.png",
+                name: "Ford GT40",
+                price: 7880.00,
+              ),
+              ProductTile(
+                imglink: "assets/images/image_01.png",
+                name: "Mercedes Maybach S 650",
+                price: 13880.00,
+              ),
+              ProductTile(
+                imglink: "assets/images/image_08.png",
+                name: "Ford GT40",
+                price: 7880.00,
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: 50,
+              ),
+              ProductTile(
+                imglink: "assets/images/image_09.png",
+                name: "Ford GT40",
+                price: 7880.00,
+              ),
+              ProductTile(
+                imglink: "assets/images/image_02.png",
+                name: "Ford GT40",
+                price: 7880.00,
+              ),
+              ProductTile(
+                imglink: "assets/images/image_10.png",
+                name: "Mercedes Maybach S 650",
+                price: 13880.00,
+              ),
+              ProductTile(
+                imglink: "assets/images/image_02.png",
+                name: "Ford GT40",
+                price: 7880.00,
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
 }

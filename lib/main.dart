@@ -4,6 +4,8 @@ import 'package:scale_model_cart/constants/color_schemes.g.dart';
 import 'package:scale_model_cart/constants/constants.dart';
 import 'package:statusbarz/statusbarz.dart';
 
+import 'Screens/HomePage/home_screen.dart';
+import 'Screens/HomePage/main_screen.dart';
 import 'Screens/HomePage/productPage.dart';
 import 'Screens/ProductViewpage/product_detail_view.dart';
 
@@ -18,16 +20,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StatusbarzCapturer(
       child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(backgroundColor: Colors.green),
-          platform: TargetPlatform.iOS,
-          colorScheme: lightColorScheme,
-        ),
-        home: ProductPage(
-          title: "New Collection",
-        ),
-      ),
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(backgroundColor: Colors.green),
+            platform: TargetPlatform.iOS,
+            colorScheme: lightColorScheme,
+          ),
+          home: MainScreen()),
     );
   }
 }

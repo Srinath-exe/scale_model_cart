@@ -1,5 +1,6 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:scale_model_cart/Models/product_model.dart';
 import 'package:scale_model_cart/Screens/Category/categoryPage.dart';
 import 'package:scale_model_cart/Screens/HomePage/product_Tile.dart';
 import 'package:scale_model_cart/constants/constants.dart';
@@ -169,14 +170,6 @@ class _ProductPageState extends State<ProductPage> {
       child: Container(
         height: 50,
         width: GetSize().width(context) * 0.30,
-        // decoration: BoxDecoration(
-        //     color: accent.withOpacity(0.1),
-        //     borderRadius: BorderRadius.only(
-        //         topRight: Radius.circular(10),
-        //         bottomLeft: Radius.circular(10),
-        //         topLeft: Radius.circular(30),
-        //         bottomRight: Radius.circular(30))),
-        // alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -207,65 +200,22 @@ niceRow() {
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ProductTile(
-              scale: 0.8,
-              imglink: "assets/images/image_01.png",
-              name: "Mercedes Maybach S 650",
-              price: 13880.00,
-            ),
-            ProductTile(
-              scale: 0.8,
-              imglink: "assets/images/image_02.png",
-              name: "Ford GT40",
-              price: 7880.00,
-            ),
-            ProductTile(
-              scale: 0.8,
-              imglink: "assets/images/image_01.png",
-              name: "Mercedes Maybach S 650",
-              price: 13880.00,
-            ),
-            ProductTile(
-              scale: 0.8,
-              imglink: "assets/images/image_08.png",
-              name: "Ford GT40",
-              price: 7880.00,
-            ),
-            ProductTile(
-              scale: 0.8,
-              imglink: "assets/images/image_09.png",
-              name: "Ford GT40",
-              price: 7880.00,
-            ),
-            ProductTile(
-              scale: 0.8,
-              imglink: "assets/images/image_02.png",
-              name: "Ford GT40",
-              price: 7880.00,
-            ),
-            ProductTile(
-              scale: 0.8,
-              imglink: "assets/images/image_10.png",
-              name: "Mercedes Maybach S 650",
-              price: 13880.00,
-            ),
-            ProductTile(
-              scale: 0.8,
-              imglink: "assets/images/image_02.png",
-              name: "Ford GT40",
-              price: 7880.00,
-            ),
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: List.generate(
+                cars.length,
+                (index) => ProductTile(
+                      car: cars[index],
+                      scale: 0.8,
+                    )).toList()),
       ),
     ],
   );
 }
 
+List<Car> carlist = cars;
 nice() {
+  cars.shuffle();
   return Column(
     children: [
       SizedBox(
@@ -276,54 +226,24 @@ nice() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
-            children: [
-              ProductTile(
-                imglink: "assets/images/image_01.png",
-                name: "Mercedes Maybach S 650",
-                price: 13880.00,
-              ),
-              ProductTile(
-                imglink: "assets/images/image_02.png",
-                name: "Ford GT40",
-                price: 7880.00,
-              ),
-              ProductTile(
-                imglink: "assets/images/image_01.png",
-                name: "Mercedes Maybach S 650",
-                price: 13880.00,
-              ),
-              ProductTile(
-                imglink: "assets/images/image_08.png",
-                name: "Ford GT40",
-                price: 7880.00,
-              ),
-            ],
-          ),
+              children: List.generate(
+                  4,
+                  (index) => ProductTile(
+                        car: cars[index],
+                        scale: 0.8,
+                      )).toList()),
           Column(
             children: [
               SizedBox(
                 height: 50,
               ),
-              ProductTile(
-                imglink: "assets/images/image_09.png",
-                name: "Ford GT40",
-                price: 7880.00,
-              ),
-              ProductTile(
-                imglink: "assets/images/image_02.png",
-                name: "Ford GT40",
-                price: 7880.00,
-              ),
-              ProductTile(
-                imglink: "assets/images/image_10.png",
-                name: "Mercedes Maybach S 650",
-                price: 13880.00,
-              ),
-              ProductTile(
-                imglink: "assets/images/image_02.png",
-                name: "Ford GT40",
-                price: 7880.00,
-              ),
+              Column(
+                  children: List.generate(
+                      4,
+                      (index) => ProductTile(
+                            car: cars[index + 4],
+                            scale: 0.8,
+                          )).toList()),
             ],
           ),
         ],

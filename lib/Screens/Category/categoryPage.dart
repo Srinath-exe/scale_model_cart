@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:scale_model_cart/Screens/Category/Categoryproduct.dart';
 import 'package:scale_model_cart/Screens/HomePage/home.dart';
+import 'package:scale_model_cart/constants/constants.dart';
+
+import '../HomePage/productPage.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);
@@ -13,29 +16,31 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: secondary,
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.black,
-          ),
-          splashRadius: 20,
-          splashColor: Colors.grey,
-          onPressed: () {
-            setState(() {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home()));
-            });
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     Icons.arrow_back_ios_new_rounded,
+        //     color: Colors.black,
+        //   ),
+        //   splashRadius: 20,
+        //   splashColor: light,
+        //   onPressed: () {
+        //     setState(() {
+        //       Navigator.push(
+        //           context, MaterialPageRoute(builder: (context) => Home()));
+        //     });
+        //   },
+        // ),
+        centerTitle: false,
         title: Text(
           "Categories",
           style: TextStyle(
-              color: Colors.black,
+              color: light,
               fontSize: 22.0,
               fontFamily: "Calibre-Semibold",
               letterSpacing: 1.0,
-              fontWeight: FontWeight.w600),
+              fontWeight: FontWeight.w500),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -93,13 +98,14 @@ class _CategoryPageState extends State<CategoryPage> {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         enableFeedback: true,
+        borderRadius: BorderRadius.circular(10.0),
         splashColor: color2,
         onTap: () {
           setState(() {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CategoryProductPage(title: title)));
+                    builder: (context) => ProductPage(title: title)));
           });
         },
         child: Ink(

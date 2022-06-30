@@ -3,12 +3,13 @@ import 'package:scale_model_cart/Screens/ProductViewpage/product_detail_view.dar
 import 'package:scale_model_cart/constants/constants.dart';
 import 'package:scale_model_cart/widgets/buttons.dart';
 
+import '../../Models/product_model.dart';
 import '../../Models/tempPrdModel.dart';
 
 class ImagesScreen extends StatefulWidget {
-  Product product;
+  Car car;
   int index;
-  ImagesScreen({Key? key, required this.index, required this.product})
+  ImagesScreen({Key? key, required this.index, required this.car})
       : super(key: key);
 
   @override
@@ -62,7 +63,7 @@ class _ImagesScreenState extends State<ImagesScreen> {
                   });
                 }),
                 controller: controller,
-                itemCount: widget.product.img.length,
+                itemCount: widget.car.img.length,
                 scrollDirection: Axis.horizontal,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
@@ -70,7 +71,7 @@ class _ImagesScreenState extends State<ImagesScreen> {
                   return Transform(
                     transform: Matrix4.identity()
                       ..rotateZ(currentPageValue - index),
-                    child: image(widget.product.img[index]),
+                    child: image(widget.car.img[index]),
                   );
                 }),
             // children:
@@ -101,7 +102,7 @@ class _ImagesScreenState extends State<ImagesScreen> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.75,
                   child: Text(
-                    "FORD GT40 MKI - LE MANS - WINNER",
+                    widget.car.name,
                     style: TextStyle(
                         color: secondary,
                         fontSize: 24,
@@ -113,7 +114,7 @@ class _ImagesScreenState extends State<ImagesScreen> {
                   height: 8,
                 ),
                 Text(
-                  "Scale - 1:18",
+                  "Scale -" + widget.car.scale,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -128,13 +129,15 @@ class _ImagesScreenState extends State<ImagesScreen> {
               right: 15,
               child: ThemeButton(
                 onTap: () {
-                  Navigator.of(context).push(
+                  Navigator.of(context).pop(
                     PageRouteBuilder(
                       transitionDuration: Duration(milliseconds: 1000),
                       pageBuilder: (BuildContext context,
                           Animation<double> animation,
                           Animation<double> secondaryAnimation) {
-                        return ProductScreen();
+                        return ProductScreen(
+                          car: widget.car,
+                        );
                       },
                       transitionsBuilder: (BuildContext context,
                           Animation<double> animation,
@@ -173,7 +176,7 @@ class _ImagesScreenState extends State<ImagesScreen> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
-                      widget.product.img.length,
+                      widget.car.img.length,
                       (index) => indicator(
                           currentPageValue == (index) ? true : false)),
                 ),
@@ -192,7 +195,9 @@ class _ImagesScreenState extends State<ImagesScreen> {
         curve: Curves.easeIn,
         duration: Duration(milliseconds: 100),
         height: active ? 3 : 2,
-        width: active ? 70 : 40,
+        width: active
+            ? ((GetSize().width(context) * 0.5) / widget.car.img.length) * 2
+            : (GetSize().width(context) * 0.35) / widget.car.img.length,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: active ? accent : Colors.white),

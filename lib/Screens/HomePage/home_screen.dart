@@ -4,7 +4,10 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:scale_model_cart/Screens/Category/categoryPage.dart';
 import 'package:scale_model_cart/Screens/HomePage/productPage.dart';
+import 'package:scale_model_cart/Screens/HomePage/search_screen.dart';
 import 'package:scale_model_cart/constants/constants.dart';
+
+import '../../widgets/HomeDrawer.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -14,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int curr = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,31 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             banner(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Top Deal's",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: light,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "See all",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: light.withOpacity(0.6),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-            ),
-            niceRow(),
+            prodRow("Top Deal's"),
           ],
         )),
       ),
@@ -102,12 +82,15 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationY(3.14),
-              child: Container(
-                width: GetSize().width(context) * 0.07,
-                child: Image.asset("assets/images/menu.png"),
+            GestureDetector(
+              onTap: () => scaffoldKey.currentState!.openDrawer(),
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.rotationY(3.14),
+                child: Container(
+                  width: GetSize().width(context) * 0.07,
+                  child: Image.asset("assets/images/menu.png"),
+                ),
               ),
             ),
             Material(
@@ -124,103 +107,66 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  search() {
-    return Material(
-      elevation: 20,
-      shadowColor: secondary.withOpacity(0.5),
-      borderRadius: BorderRadius.circular(10),
-      color: secondaryLight,
-      child: Container(
-        height: 50,
-
-        // decoration: BoxDecoration(
-        //     color: accent.withOpacity(0.1),
-        //     borderRadius: BorderRadius.only(
-        //         topRight: Radius.circular(10),
-        //         bottomLeft: Radius.circular(10),
-        //         topLeft: Radius.circular(30),
-        //         bottomRight: Radius.circular(30))),
-        // alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.search_rounded,
-                color: light,
-              ),
-            ),
-            // SizedBox(
-            //   width: GetSize().width(context) * 0.01,
-            // ),
-            Text(
-              "Search...",
-              style: TextStyle(color: light.withOpacity(0.6)),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   tags() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          ac("SUV", active: true),
-          ac("luxury"),
-          ac("Bikes"),
-          ac("Sports Car"),
-          ac("Super Car"),
+          ac("SUV", 0),
+          ac("luxury", 1),
+          ac("Bikes", 2),
+          ac("Sports Car", 3),
+          ac("Super Car", 4),
         ],
       ),
     );
   }
 
-  ac(String text, {bool? active}) {
-    active == null ? active = false : null;
+  ac(String text, int index) {
+    bool active;
+    active = index == curr ? true : false;
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Material(
-        color: Colors.transparent,
-        elevation: active ? 6 : 2,
-        // shadowColor: active ? accent : secondaryLight,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            curr = index;
+          });
+        },
         borderRadius: BorderRadius.circular(10),
-        child: Container(
-          decoration: BoxDecoration(
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: active
-              //         ? accent.withOpacity(0.5)
-              //         : secondaryLight.withOpacity(0.5),
-              //     blurRadius: 10.0,
-              //   ),
-              // ],
-              color: active ? accent : secondaryLight,
-              borderRadius: BorderRadius.circular(10)),
-          padding: EdgeInsets.all(8),
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/images/image_01.png",
-                width: 70,
-              ),
-              // SizedBox(
-              //   height: 8,
-              // ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  text,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: active ? FontWeight.w600 : FontWeight.w500,
-                      color: !active ? light.withOpacity(0.7) : secondary),
+        child: Material(
+          color: Colors.transparent,
+          elevation: active ? 6 : 2,
+          // shadowColor: active ? accent : secondaryLight,
+          borderRadius: BorderRadius.circular(10),
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 250),
+            curve: Curves.ease,
+            decoration: BoxDecoration(
+                color: active ? accent : secondaryLight,
+                borderRadius: BorderRadius.circular(10)),
+            padding: EdgeInsets.all(8),
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/images/image_01.png",
+                  width: 70,
                 ),
-              ),
-            ],
+                // SizedBox(
+                //   height: 8,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: active ? FontWeight.w600 : FontWeight.w500,
+                        color: !active ? light.withOpacity(0.7) : secondary),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -322,4 +268,44 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+search() {
+  return Material(
+    elevation: 20,
+    shadowColor: secondary.withOpacity(0.5),
+    borderRadius: BorderRadius.circular(10),
+    color: secondaryLight,
+    child: Container(
+      height: 50,
+
+      // decoration: BoxDecoration(
+      //     color: accent.withOpacity(0.1),
+      //     borderRadius: BorderRadius.only(
+      //         topRight: Radius.circular(10),
+      //         bottomLeft: Radius.circular(10),
+      //         topLeft: Radius.circular(30),
+      //         bottomRight: Radius.circular(30))),
+      // alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              Icons.search_rounded,
+              color: light,
+            ),
+          ),
+          // SizedBox(
+          //   width: GetSize().width(context) * 0.01,
+          // ),
+          Text(
+            "Search...",
+            style: TextStyle(color: light.withOpacity(0.6)),
+          )
+        ],
+      ),
+    ),
+  );
 }

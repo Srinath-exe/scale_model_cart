@@ -7,13 +7,15 @@ import 'package:scale_model_cart/Screens/ProductViewpage/prod_image_page.dart';
 import 'package:scale_model_cart/widgets/buttons.dart';
 import 'package:scale_model_cart/widgets/productCard.dart';
 
+import '../../Models/product_model.dart';
 import '../../constants/constants.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/productImage.dart';
 import '../HomePage/productPage.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key});
+  Car car;
+  ProductScreen({super.key, required this.car});
 
   @override
   State<ProductScreen> createState() => ProductScreenState();
@@ -22,17 +24,6 @@ class ProductScreen extends StatefulWidget {
 class ProductScreenState extends State<ProductScreen> {
   ScrollController controller = new ScrollController();
   PageController indicatorcontroller = new PageController();
-  Product p1 = Product(
-      name: "Fiat 131 Panorama - Alitalia",
-      price: 28800,
-      img: [
-        "assets/images/image_01.png",
-        "assets/images/image_02.png",
-        "assets/images/image_03.png",
-        "assets/images/image_04.png",
-      ],
-      details:
-          "Named as 'GT' or Grand Touring car, the Ford made GT 40 were produced in the UK and was based on the British made Lola MK6 model with inputs from John Wyer Automotive Engineering, Shelby and a gearbox supplier called Kar-Kraft Powered by Ford made 289 cubic inch V8 engines, about 100 cars rolled out as Ford GT 40 in Mark I, II and Mark III variants. The reason why it was called 40 was because of the height of her windshield which was 40 inches.On 15th June, 1969 at the Circuit de la Sarthe during Le Mans, a Ford GT40 MK I entered by J. W. Automotive Engineering Ltd. and driven by Belgian Jacky Ickx and British Jack Oliver came first after doing 372 laps maintaining an average speed of 208 km/hr");
 
   int _curr = 0;
   bool fav = false;
@@ -52,19 +43,48 @@ class ProductScreenState extends State<ProductScreen> {
       backgroundColor: secondary,
       floatingActionButton: ThemeButton(
         text: "",
+        borderRadius: 22,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(
-              "Add to Cart",
-              style: TextStyle(fontSize: 18, color: secondary),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Icon(
+                  Icons.shopping_bag_rounded,
+                  color: secondary,
+                  size: 20,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Add ",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: secondary,
+                      fontWeight: FontWeight.w400),
+                ),
+                Text(
+                  "to ",
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: secondary,
+                      fontWeight: FontWeight.w400),
+                ),
+                Text("Cart",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: secondary,
+                        fontWeight: FontWeight.w400)),
+              ],
             ),
-            Icon(
-              Icons.shopping_bag_rounded,
-              color: secondary,
-              size: 24,
-            )
+            Text(
+              "\$ " + widget.car.price.toString(),
+              style: TextStyle(
+                  color: secondary, fontSize: 20, fontWeight: FontWeight.w500),
+            ),
           ]),
         ),
         bgColor: accent,
@@ -89,13 +109,7 @@ class ProductScreenState extends State<ProductScreen> {
                       children: [
                         CustomBackButton(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductPage(
-                                    title: "New Collection",
-                                  ),
-                                ));
+                            Navigator.pop(context);
                           },
                         ),
                         ThemeButton(
@@ -144,7 +158,7 @@ class ProductScreenState extends State<ProductScreen> {
                                   color: Colors.amber,
                                 ),
                               ),
-                              Text("4.5")
+                              Text(widget.car.rating.toString())
                             ],
                           ),
                           width: 55,
@@ -165,7 +179,7 @@ class ProductScreenState extends State<ProductScreen> {
                                 Animation<double> animation,
                                 Animation<double> secondaryAnimation) {
                               return ImagesScreen(
-                                product: p1,
+                                car: widget.car,
                                 index: _curr,
                               );
                             },
@@ -227,10 +241,10 @@ class ProductScreenState extends State<ProductScreen> {
                                   offAxisFraction: -1,
                                   overAndUnderCenterOpacity: 1,
                                   squeeze: 0.65,
-                                  children: List.generate(
-                                          p1.img.length, (index) => index)
+                                  children: List.generate(widget.car.img.length,
+                                          (index) => index)
                                       .map((index) =>
-                                          image(index, p1.img[index]))
+                                          image(index, widget.car.img[index]))
                                       .toList(),
                                 ),
                               ),
@@ -241,7 +255,7 @@ class ProductScreenState extends State<ProductScreen> {
                             left: 0,
                             child: Column(
                               children: List.generate(
-                                  p1.img.length,
+                                  widget.car.img.length,
                                   (index) => indicator(
                                       _curr == (index) ? true : false)),
                             ),
@@ -258,7 +272,7 @@ class ProductScreenState extends State<ProductScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "\$ 1,500",
+                        "\$ " + widget.car.price.toString(),
                         style: TextStyle(
                             color: secondary,
                             fontSize: 42,
@@ -274,30 +288,30 @@ class ProductScreenState extends State<ProductScreen> {
                     ],
                   ),
                 ),
-                Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                      width: GetSize().width(context) * 0.6,
-                      height: 160,
-                      child: Image.asset("assets/images/offer.png"),
-                    )),
-                Positioned(
-                    top: 10,
-                    right: 0,
-                    child: Container(
-                      width: GetSize().width(context) * 0.6,
-                      height: 160,
-                      alignment: Alignment.center,
-                      child: Text(
-                        "15% off",
-                        style: TextStyle(
-                            color: secondary,
-                            fontSize: 16,
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ))
+                // Positioned(
+                //     top: 0,
+                //     right: 0,
+                //     child: Container(
+                //       width: GetSize().width(context) * 0.6,
+                //       height: 160,
+                //       child: Image.asset("assets/images/offer.png"),
+                //     )),
+                // Positioned(
+                //     top: 10,
+                //     right: 0,
+                //     child: Container(
+                //       width: GetSize().width(context) * 0.6,
+                //       height: 160,
+                //       alignment: Alignment.center,
+                //       child: Text(
+                //         "15% off",
+                //         style: TextStyle(
+                //             color: secondary,
+                //             fontSize: 16,
+                //             letterSpacing: 1,
+                //             fontWeight: FontWeight.w600),
+                //       ),
+                //     ))
               ],
             ),
             SizedBox(
@@ -311,7 +325,7 @@ class ProductScreenState extends State<ProductScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                      "FORD GT40 MKI - LE MANS - WINNER",
+                      widget.car.name,
                       style: TextStyle(
                           color: light,
                           fontSize: 24,
@@ -323,7 +337,7 @@ class ProductScreenState extends State<ProductScreen> {
                     height: 8,
                   ),
                   Text(
-                    "Scale - 1:18",
+                    "Scale -" + widget.car.scale,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -334,7 +348,7 @@ class ProductScreenState extends State<ProductScreen> {
                     height: 12,
                   ),
                   Text(
-                    p1.details,
+                    widget.car.details,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -389,7 +403,9 @@ class ProductScreenState extends State<ProductScreen> {
         child: AnimatedContainer(
           curve: Curves.easeIn,
           duration: Duration(milliseconds: 500),
-          height: active ? 70 : 40,
+          height: active
+              ? ((GetSize().height(context) * 0.2) / widget.car.img.length) * 2
+              : (GetSize().height(context) * 0.1) / widget.car.img.length,
           width: active ? 3 : 2,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

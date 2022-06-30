@@ -1,21 +1,17 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:scale_model_cart/Models/product_model.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 import 'package:scale_model_cart/constants/constants.dart';
 
 import '../ProductViewpage/product_detail_view.dart';
 
 class ProductTile extends StatefulWidget {
-  String imglink;
-  String name;
+  Car car;
   double? scale;
-  double price;
-  ProductTile(
-      {required this.imglink,
-      required this.name,
-      required this.price,
-      this.scale = 1});
+
+  ProductTile({required this.car, this.scale = 1});
 
   @override
   _ProductTileState createState() => _ProductTileState();
@@ -32,8 +28,12 @@ class _ProductTileState extends State<ProductTile> {
         child: GestureDetector(
           onTap: () {
             setState(() {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProductScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProductScreen(
+                            car: widget.car,
+                          )));
             });
           },
           child: Transform.scale(
@@ -106,7 +106,7 @@ class _ProductTileState extends State<ProductTile> {
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
                             child: Text(
-                              widget.name,
+                              widget.car.name,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: light.withOpacity(0.7),
@@ -119,7 +119,7 @@ class _ProductTileState extends State<ProductTile> {
                             height: 4,
                           ),
                           Text(
-                            '\$ ' + widget.price.toString(),
+                            '\$ ' + widget.car.price.toString(),
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -131,7 +131,7 @@ class _ProductTileState extends State<ProductTile> {
                     ),
                   ],
                 ),
-                Positioned(left: -20, top: -20, child: img(widget.imglink))
+                Positioned(left: -20, top: -20, child: img(widget.car.img[0]))
               ],
             ),
           ),
@@ -140,13 +140,16 @@ class _ProductTileState extends State<ProductTile> {
 
   Widget img(String img) {
     return Container(
-        width: MediaQuery.of(context).size.width * 0.50,
+        width: MediaQuery.of(context).size.width * 0.45,
         // height: MediaQuery.of(context).size.height * 0.14,
         child: Transform.rotate(
           angle: 0,
-          child: Image.asset(
-            img,
-            fit: BoxFit.fill,
+          child: Hero(
+            tag: img,
+            child: Image.asset(
+              img,
+              fit: BoxFit.fill,
+            ),
           ),
         ));
   }

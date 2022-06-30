@@ -89,6 +89,20 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/ 
+    - assets/images/sclass/
+    - assets/images/f1/
+    - assets/images/gtr/
+    - assets/images/h2r/
+    - assets/images/gls600/
+    - assets/images/vision/ 
+    - assets/images/one/
+    - assets/images/lambo/
+    - assets/images/mclaren/
+    - assets/images/urus/
+    - assets/images/bugatti/
+    - assets/images/velar/
+    
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

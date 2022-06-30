@@ -12,10 +12,12 @@ class ThemeButton extends StatefulWidget {
   bool? outlineButton;
   double? fontsize;
   Widget? child;
+  double? borderRadius;
 
   ThemeButton(
       {Key? key,
       this.onTap,
+      this.borderRadius = 10,
       this.txtColor = Colors.white,
       this.elevation = 2,
       required this.text,
@@ -59,7 +61,7 @@ class _ThemeButtonState extends State<ThemeButton> {
                     side: widget.outlineButton!
                         ? BorderSide(width: 3, color: widget.bgColor!)
                         : BorderSide.none,
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(widget.borderRadius!)),
                 elevation: 0,
                 primary: Colors.white)),
       ),

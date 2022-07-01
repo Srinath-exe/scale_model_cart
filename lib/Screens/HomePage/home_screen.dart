@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
+import 'package:page_route_transition/page_route_transition.dart';
 import 'package:scale_model_cart/Screens/Category/categoryPage.dart';
 import 'package:scale_model_cart/Screens/HomePage/productPage.dart';
+import 'package:scale_model_cart/Screens/HomePage/profilescreen.dart';
 import 'package:scale_model_cart/Screens/HomePage/search_screen.dart';
 import 'package:scale_model_cart/constants/constants.dart';
 
@@ -93,14 +95,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Material(
-              color: Colors.transparent,
-              shape: CircleBorder(),
-              elevation: 20,
-              child: CircleAvatar(
-                backgroundColor: accent,
-                radius: 22,
-                child: Image.asset("assets/images/avatar.png"),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  Navigator.push(
+                      context,
+                      PageRouteTransitionBuilder(
+                          page: ProfileScreen(),
+                          curve: Curves.easeOut,
+                          duration: Duration(milliseconds: 600),
+                          effect: TransitionEffect.topToBottom));
+                });
+              },
+              child: Material(
+                color: Colors.transparent,
+                shape: CircleBorder(),
+                elevation: 20,
+                child: CircleAvatar(
+                  backgroundColor: accent,
+                  radius: 22,
+                  child: Image.asset("assets/images/avatar.png"),
+                ),
               ),
             ),
           ]),

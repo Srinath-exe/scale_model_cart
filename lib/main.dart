@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:scale_model_cart/Screens/HomePage/home.dart';
+import 'package:scale_model_cart/Models/product_model.dart';
+
+import 'package:scale_model_cart/Screens/WishList/WishList.dart';
 import 'package:scale_model_cart/constants/color_schemes.g.dart';
 import 'package:scale_model_cart/constants/constants.dart';
 import 'package:statusbarz/statusbarz.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scale_model_cart/Screens/Category/Categoryproduct.dart';
-import 'package:scale_model_cart/Screens/HomePage/home.dart';
+
 import 'package:scale_model_cart/constants/constants.dart';
 
 import '../HomePage/productPage.dart';

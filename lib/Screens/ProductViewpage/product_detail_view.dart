@@ -22,9 +22,10 @@ class ProductScreen extends StatefulWidget {
 }
 
 class ProductScreenState extends State<ProductScreen> {
-  ScrollController controller = new ScrollController();
+  // ScrollController controller = new ScrollController();
   PageController indicatorcontroller = new PageController();
-
+  double currentPageValue = 0;
+  PageController controller = new PageController(viewportFraction: 0.9);
   int _curr = 0;
   bool fav = false;
   bool cart = false;
@@ -198,26 +199,26 @@ class ProductScreenState extends State<ProductScreen> {
                           ),
                         );
                       },
-                      onVerticalDragUpdate: (details) {
-                        int sensitivity = 8;
-                        if (details.delta.dy > sensitivity) {
-                          // Down Swipe
-                          controller.animateTo(controller.offset - 220,
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeIn);
-                          setState(() {
-                            _curr = (controller.offset / 220).toInt() - 1;
-                          });
-                        } else if (details.delta.dy < -sensitivity) {
-                          // Up Swipe
-                          controller.animateTo(220 + controller.offset,
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeIn);
-                          setState(() {
-                            _curr = (controller.offset / 220).toInt() + 1;
-                          });
-                        }
-                      },
+                      // onVerticalDragUpdate: (details) {
+                      //   int sensitivity = 8;
+                      //   if (details.delta.dy > sensitivity) {
+                      //     // Down Swipe
+                      //     controller.animateTo(controller.offset - 220,
+                      //         duration: Duration(milliseconds: 300),
+                      //         curve: Curves.easeIn);
+                      //     setState(() {
+                      //       _curr = (controller.offset / 220).toInt() - 1;
+                      //     });
+                      //   } else if (details.delta.dy < -sensitivity) {
+                      //     // Up Swipe
+                      //     controller.animateTo(220 + controller.offset,
+                      //         duration: Duration(milliseconds: 300),
+                      //         curve: Curves.easeIn);
+                      //     setState(() {
+                      //       _curr = (controller.offset / 220).toInt() + 1;
+                      //     });
+                      //   }
+                      // },
                       child: Stack(
                         children: [
                           Material(
@@ -233,20 +234,25 @@ class ProductScreenState extends State<ProductScreen> {
                                       bottomLeft: Radius.circular(120))),
                               width: GetSize().width(context) * 0.8,
                               child: Container(
-                                child: ListWheelScrollView(
-                                  controller: controller,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  diameterRatio: 2,
-                                  itemExtent: 220,
-                                  offAxisFraction: -1,
-                                  overAndUnderCenterOpacity: 1,
-                                  squeeze: 0.65,
-                                  children: List.generate(widget.car.img.length,
-                                          (index) => index)
-                                      .map((index) =>
-                                          image(index, widget.car.img[index]))
-                                      .toList(),
-                                ),
+                                alignment: Alignment.centerRight,
+                                child: PageView.builder(
+                                    controller: controller,
+                                    itemCount: widget.car.img.length,
+                                    onPageChanged: ((value) {
+                                      setState(() {
+                                        currentPageValue = value.toDouble();
+                                      });
+                                    }),
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) {
+                                      // Transform using for animation
+                                      return Transform(
+                                        transform: Matrix4.identity()
+                                          ..rotateY(currentPageValue - index),
+                                        child:
+                                            image(index, widget.car.img[index]),
+                                      );
+                                    }),
                               ),
                             ),
                           ),
@@ -257,7 +263,9 @@ class ProductScreenState extends State<ProductScreen> {
                               children: List.generate(
                                   widget.car.img.length,
                                   (index) => indicator(
-                                      _curr == (index) ? true : false)),
+                                      currentPageValue == (index)
+                                          ? true
+                                          : false)),
                             ),
                           )
                         ],
@@ -414,10 +422,45 @@ class ProductScreenState extends State<ProductScreen> {
   }
 
   Widget image(int index, String url) {
-    return Container(
-      height: GetSize().height(context) * 0.3,
-      width: GetSize().height(context) * 0.3,
-      child: Hero(tag: url, child: Image.asset(url)),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        alignment: Alignment.centerRight,
+        height: GetSize().height(context) * 0.3,
+        width: GetSize().height(context) * 0.3,
+        child: Hero(tag: index, child: Image.asset(url)),
+      ),
     );
   }
 }
+
+//  Material(
+//                             borderRadius: BorderRadius.only(
+//                                 bottomLeft: Radius.circular(120)),
+//                             elevation: 20,
+//                             child: Container(
+//                               clipBehavior: Clip.hardEdge,
+//                               height: GetSize().height(context) * 0.5,
+//                               decoration: BoxDecoration(
+//                                   color: accent,
+//                                   borderRadius: BorderRadius.only(
+//                                       bottomLeft: Radius.circular(120))),
+//                               width: GetSize().width(context) * 0.8,
+//                               child: Container(
+//                                 child: ListWheelScrollView(
+//                                   controller: controller,
+//                                   physics: NeverScrollableScrollPhysics(),
+//                                   diameterRatio: 2,
+//                                   itemExtent: 220,
+//                                   offAxisFraction: -1,
+//                                   overAndUnderCenterOpacity: 1,
+//                                   squeeze: 0.65,
+//                                   children: List.generate(widget.car.img.length,
+//                                           (index) => index)
+//                                       .map((index) =>
+//                                           image(index, widget.car.img[index]))
+//                                       .toList(),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),

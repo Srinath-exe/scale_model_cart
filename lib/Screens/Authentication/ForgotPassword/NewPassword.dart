@@ -1,6 +1,6 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
-import 'package:scale_model_cart/Screens/HomePage/home.dart';
+import 'package:scale_model_cart/Screens/HomePage/home_screen.dart';
 
 class NewPassword extends StatefulWidget {
   @override
@@ -331,7 +331,7 @@ class _NewPasswordState extends State<NewPassword> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Home()));
+                                          builder: (context) => HomeScreen()));
                                 });
                               }),
                         ),

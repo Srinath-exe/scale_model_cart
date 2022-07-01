@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scale_model_cart/Screens/Authentication/ForgotPassword/forgotPassword.dart';
-
-import 'package:scale_model_cart/Screens/HomePage/home.dart';
+import 'package:scale_model_cart/Screens/HomePage/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   Function signup;
@@ -213,8 +212,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
                         },
                         child: Container(
                           width: width * 0.4,

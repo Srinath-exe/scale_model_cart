@@ -1,11 +1,15 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:scale_model_cart/Screens/Cartpage/Cart.dart';
-import 'package:scale_model_cart/Screens/HomePage/home.dart';
+import 'package:scale_model_cart/Screens/HomePage/home_screen.dart';
+
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
+import 'package:scale_model_cart/constants/constants.dart';
 import 'package:scale_model_cart/widgets/WishList_card.dart';
 
+import '../../Models/product_model.dart';
 import '../HomePage/productPage.dart';
+import '../ProductViewpage/product_detail_view.dart';
 
 class WishList extends StatefulWidget {
   WishList({Key? key}) : super(key: key);
@@ -17,125 +21,19 @@ class WishList extends StatefulWidget {
 class _WishListState extends State<WishList> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[200],
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: secondary,
+      body: SafeArea(
+        child: SingleChildScrollView(
             child: Column(
           children: [
             appbar(),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
+              height: MediaQuery.of(context).size.height * 0.01,
             ),
-            // emptywishList(),
-            OpenContainer(
-                closedColor: Colors.white70,
-                transitionDuration: Duration(seconds: 1),
-                closedBuilder: (context, VoidCallback openContainer) =>
-                    WishListCard(
-                        img:
-                            "https://www.scalemodelcart.com/usrfile/40002-18_Norev_Mercedes_Maybach_S_650_a.jpg",
-                        price: 13880.00,
-                        name: 'Mercedes Maybach S 650'),
-                openBuilder: (context, _) =>  ProductPage(
-                title: "New Collection",
-              ),
-            ),
-            OpenContainer(
-                closedColor: Colors.white70,
-                transitionDuration: Duration(seconds: 1),
-                closedBuilder: (context, VoidCallback openContainer) =>
-                    WishListCard(
-                        img:
-                            "https://www.scalemodelcart.com/usrfile/40002-18_Solido_S1803004_Ford_GT40_a.jpg",
-                        price: 7880.00,
-                        name: 'Ford GT40'),
-                openBuilder: (context, _) =>  ProductPage(
-                                    title: "New Collection",
-                                  ),),
-            OpenContainer(
-                closedColor: Colors.white70,
-                transitionDuration: Duration(seconds: 1),
-                closedBuilder: (context, VoidCallback openContainer) =>
-                    WishListCard(
-                        img:
-                            "https://www.scalemodelcart.com/usrfile/40002-18_Solido_S1803004_Ford_GT40_a.jpg",
-                        price: 7880.00,
-                        name: 'Ford GT40'),
-                openBuilder: (context, _) =>  ProductPage(
-                                    title: "New Collection",
-                                  ),),
-            OpenContainer(
-                closedColor: Colors.white70,
-                transitionDuration: Duration(seconds: 1),
-                closedBuilder: (context, VoidCallback openContainer) =>
-                    WishListCard(
-                      img:
-                          "https://www.scalemodelcart.com/usrfile/40002-18_CMR175_Mazda_787B_LeMans_Gachot_a.jpg",
-                      name: "Mazda 787B LeMans",
-                      price: 9855.00,
-                    ),
-                openBuilder: (context, _) =>  ProductPage(
-                                    title: "New Collection",
-                                  ),),
-
-            OpenContainer(
-                closedColor: Colors.white70,
-                transitionDuration: Duration(seconds: 1),
-                closedBuilder: (context, VoidCallback openContainer) =>
-                    WishListCard(
-                        img:
-                            "https://www.scalemodelcart.com/usrfile/40011-18_AM_Vulcan_a.jpeg",
-                        price: 12000.0,
-                        name: 'Aston Martin Valcun'),
-                openBuilder: (context, _) =>  ProductPage(
-                                    title: "New Collection",
-                                  ),),
-
-            OpenContainer(
-                closedColor: Colors.white70,
-                transitionDuration: Duration(seconds: 1),
-                closedBuilder: (context, VoidCallback openContainer) =>
-                    WishListCard(
-                        img:
-                            "https://www.scalemodelcart.com/usrfile/40002-18_Norev183497_Mb_AMG_GT_S_a.jpg",
-                        price: 8655.0,
-                        name: 'Mercedes Benz AMG GT-S'),
-                openBuilder: (context, _) =>  ProductPage(
-                                    title: "New Collection",
-                                  ),),
-
-            //  WishListCard(
-            //         img:
-            //             "https://www.scalemodelcart.com/usrfile/40002-18_Norev_Mercedes_Maybach_S_650_a.jpg",
-            //         price: 13880.00,
-            //         name: 'Mercedes Maybach S 650'),
-            //     WishListCard(
-            //         img:
-            //             "https://www.scalemodelcart.com/usrfile/40002-18_Solido_S1803004_Ford_GT40_a.jpg",
-            //         price: 7880.00,
-            //         name: 'Ford GT40'),
-            //     WishListCard(
-            //         img:
-            //             "https://www.scalemodelcart.com/usrfile/40002-18_Shelby_Ford_GT40_MK2_LeMans_a.jpg",
-            //         price: 23000.00,
-            //         name: 'Shelby Ford GT40 MK II LeMans '),
-            //     WishListCard(
-            //       img:
-            //           "https://www.scalemodelcart.com/usrfile/40002-18_CMR175_Mazda_787B_LeMans_Gachot_a.jpg",
-            //       name: "Mazda 787B LeMans",
-            //       price: 9855.00,
-            //     ),
-            //     WishListCard(
-            //         img:
-            //             "https://www.scalemodelcart.com/usrfile/40011-18_AM_Vulcan_a.jpeg",
-            //         price: 12000.0,
-            //         name: 'Aston Martin Valcun'),
-            //     WishListCard(
-            //         img:
-            //             "https://www.scalemodelcart.com/usrfile/40002-18_Norev183497_Mb_AMG_GT_S_a.jpg",
-            //         price: 8655.0,
-            //         name: 'Mercedes Benz AMG GT-S'),
+            Column(
+              children: List.generate(8, (index) => tile(cars[index + 3])),
+            )
           ],
         )),
       ),
@@ -153,7 +51,7 @@ class _WishListState extends State<WishList> {
           IconButton(
             icon: Icon(
               Icons.arrow_back_ios_new,
-              color: Colors.black,
+              color: light,
             ),
             onPressed: () {
               setState(() {
@@ -162,15 +60,15 @@ class _WishListState extends State<WishList> {
             },
           ),
           Text(
-            "WISHLIST",
+            "Wishlist",
             style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
+                fontSize: 20, fontWeight: FontWeight.w500, color: light),
             textScaleFactor: 1,
           ),
           IconButton(
             icon: Icon(
               Icons.shopping_bag_outlined,
-              color: Colors.black,
+              color: accent,
             ),
             onPressed: () {
               setState(() {
@@ -226,13 +124,27 @@ class _WishListState extends State<WishList> {
                   ),
                   onPressed: () {
                     setState(() {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
                     });
                   }),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  tile(Car car) {
+    return OpenContainer(
+      closedColor: secondary,
+      transitionDuration: Duration(milliseconds: 1000),
+      closedBuilder: (context, VoidCallback openContainer) =>
+          WishListCard(img: car.img[0], price: car.price, name: car.name),
+      openBuilder: (context, _) => ProductScreen(
+        car: car,
       ),
     );
   }

@@ -213,10 +213,9 @@ niceRow() {
   );
 }
 
-List<Car> carlist = cars;
 nice() {
-  cars.shuffle();
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(
         height: 20,
@@ -230,7 +229,6 @@ nice() {
                   4,
                   (index) => ProductTile(
                         car: cars[index],
-                        scale: 0.8,
                       )).toList()),
           Column(
             children: [
@@ -242,7 +240,6 @@ nice() {
                       4,
                       (index) => ProductTile(
                             car: cars[index + 4],
-                            scale: 0.8,
                           )).toList()),
             ],
           ),

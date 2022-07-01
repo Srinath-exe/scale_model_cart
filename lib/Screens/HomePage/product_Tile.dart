@@ -1,6 +1,7 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:page_route_transition/page_route_transition.dart';
 import 'package:scale_model_cart/Models/product_model.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 import 'package:scale_model_cart/constants/constants.dart';
@@ -23,17 +24,20 @@ class _ProductTileState extends State<ProductTile> {
   Widget build(BuildContext context) {
     return Padding(
         padding: widget.scale == 1
-            ? EdgeInsets.symmetric(horizontal: 32.0, vertical: 8)
+            ? EdgeInsets.all(8)
             : EdgeInsets.symmetric(horizontal: 12.0, vertical: 0),
         child: GestureDetector(
           onTap: () {
             setState(() {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => ProductScreen(
-                            car: widget.car,
-                          )));
+                  PageRouteTransitionBuilder(
+                      page: ProductScreen(
+                        car: widget.car,
+                      ),
+                      curve: Curves.easeOut,
+                      duration: Duration(milliseconds: 600),
+                      effect: TransitionEffect.bottomToTop));
             });
           },
           child: Transform.scale(

@@ -210,7 +210,7 @@ class _ImagesScreenState extends State<ImagesScreen> {
       child: Container(
           height: GetSize().height(context) * 0.3,
           width: GetSize().height(context) * 0.3,
-          child: Hero(tag: url, child: Image.asset(url))),
+          child: Hero(tag: widget.index, child: Image.asset(url))),
     );
   }
 }

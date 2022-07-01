@@ -5,6 +5,7 @@ import 'package:scale_model_cart/Screens/Cartpage/Payment/ShippingDetails.dart';
 
 import 'package:scale_model_cart/Screens/Cartpage/Payment/paymnetlogin.dart';
 import 'package:scale_model_cart/Screens/Cartpage/Payment/ordersummary.dart';
+import 'package:scale_model_cart/constants/constants.dart';
 
 enum PaymentState {
   login,
@@ -29,22 +30,23 @@ class _PaymentMainState extends State<PaymentMain> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+        backgroundColor: accent,
         body: SafeArea(
-      child: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
-              child: progress(),
+          child: Container(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: progress(),
+                ),
+                Expanded(
+                    // color: Colors.red,
+                    // height: MediaQuery.of(context).size.height*0.9,
+                    child: main())
+              ],
             ),
-            Expanded(
-                // color: Colors.red,
-                // height: MediaQuery.of(context).size.height*0.9,
-                child: main())
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 
   Widget main() {
@@ -97,32 +99,31 @@ class _PaymentMainState extends State<PaymentMain> {
                       ? Container(
                           width: MediaQuery.of(context).size.width * 0.05,
                           height: MediaQuery.of(context).size.height * 0.004,
-                          color: completed ? Colors.green : Colors.grey[400],
+                          color: completed ? Colors.green : light,
                         )
                       : Container(
                           width: MediaQuery.of(context).size.width * 0.05,
                           height: MediaQuery.of(context).size.height * 0.004,
-                          color: Colors.white,
+                          color: accent,
                         ),
                   CircleAvatar(
                     radius: 25,
-                    backgroundColor:
-                        completed ? Colors.green : Colors.grey[200],
+                    backgroundColor: completed ? Colors.green : light,
                     child: Icon(
-                      Icons.done,
-                      color: completed ? Colors.white : Colors.black,
+                      completed ? Icons.done : Icons.adjust,
+                      color: completed ? Colors.white : secondaryLight,
                     ),
                   ),
                   name != 'Payment'
                       ? Container(
                           width: MediaQuery.of(context).size.width * 0.06,
                           height: MediaQuery.of(context).size.height * 0.004,
-                          color: completed ? Colors.green : Colors.grey[400],
+                          color: completed ? Colors.green : light,
                         )
                       : Container(
                           width: MediaQuery.of(context).size.width * 0.05,
                           height: MediaQuery.of(context).size.height * 0.004,
-                          color: Colors.white,
+                          color: accent,
                         ),
                 ],
               ),
@@ -169,8 +170,7 @@ class _PaymentMainState extends State<PaymentMain> {
                     children: [
                       CircleAvatar(
                         radius: 25,
-                        backgroundColor:
-                            completed ? Colors.green : Colors.grey[200],
+                        backgroundColor: completed ? Colors.green : light,
                         child: Icon(
                           Icons.done,
                           color: completed ? Colors.white : Colors.black,

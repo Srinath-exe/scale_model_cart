@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:page_route_transition/page_route_transition.dart';
 import 'package:scale_model_cart/Models/tempPrdModel.dart';
+import 'package:scale_model_cart/Screens/HomePage/main_screen.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/ProductPage.dart';
 import 'package:scale_model_cart/Screens/ProductViewpage/prod_image_page.dart';
 import 'package:scale_model_cart/widgets/buttons.dart';
@@ -44,6 +46,19 @@ class ProductScreenState extends State<ProductScreen> {
       backgroundColor: secondary,
       floatingActionButton: ThemeButton(
         text: "",
+        onTap: () {
+          setState(() {
+            Navigator.push(
+                context,
+                PageRouteTransitionBuilder(
+                    page: MainScreen(
+                      selectedIndex: 3,
+                    ),
+                    curve: Curves.easeOut,
+                    duration: Duration(milliseconds: 600),
+                    effect: TransitionEffect.bottomToTop));
+          });
+        },
         borderRadius: 22,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

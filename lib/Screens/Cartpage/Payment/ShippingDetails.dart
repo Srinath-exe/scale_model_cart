@@ -1,34 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:scale_model_cart/constants/constants.dart';
 
 class ShippingDetails extends StatefulWidget {
-   Function onDetails;
- ShippingDetails({Key? key,required this.onDetails}) : super(key: key);
+  Function onDetails;
+  ShippingDetails({Key? key, required this.onDetails}) : super(key: key);
 
   @override
   _ShippingDetailsState createState() => _ShippingDetailsState();
 }
 
 class _ShippingDetailsState extends State<ShippingDetails> {
+  TextStyle style =
+      TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 14);
   @override
   Widget build(BuildContext context) {
     Size height = MediaQuery.of(context).size;
     return Scaffold(
-          floatingActionButton: FloatingActionButton.extended(
-          elevation: 0,
-          onPressed: () {
-              widget.onDetails();
-          },
-          
-        
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.white,
-          label: Row(
-            children: [
-              Text("Next"),
-               Icon(Icons.arrow_forward_ios,size: 15,),
-            ],
-          ),
+      backgroundColor: accent,
+      floatingActionButton: FloatingActionButton.extended(
+        elevation: 0,
+        onPressed: () {
+          widget.onDetails();
+        },
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        label: Row(
+          children: [
+            Text("Next"),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 15,
+            ),
+          ],
         ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -64,16 +69,13 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                               children: [
                                 Text(
                                   'Deliver To',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18),
+                                  style: style,
                                   textScaleFactor: 1,
                                 ),
                               ],
                             ),
                           ),
-                          form('Name', Icons.person,0.85),
+                          form('Name', Icons.person, 0.85),
                           SizedBox(
                             height: height.height * 0.02,
                           ),
@@ -83,24 +85,19 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                               children: [
                                 Text(
                                   'Address',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18),
+                                  style: style,
                                   textScaleFactor: 1,
                                 ),
                               ],
                             ),
                           ),
-                          form('Address Line 1', Icons.home,0.85),
+                          form('Address Line 1', Icons.home, 0.85),
                           form('Address Line 2', Icons.maps_home_work, 0.85),
                           form('City', Icons.apartment_outlined, 0.85),
                           Row(
                             children: [
-                               form('State', Icons.location_city, 0.45),
-                               form('Postcode', Icons.password, 0.33),
-                             
-                             
+                              form('State', Icons.location_city, 0.45),
+                              form('Postcode', Icons.password, 0.33),
                             ],
                           ),
                           SizedBox(
@@ -112,10 +109,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                               children: [
                                 Text(
                                   'Phone',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18),
+                                  style: style,
                                   textScaleFactor: 1,
                                 ),
                               ],
@@ -131,10 +125,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                               children: [
                                 Text(
                                   'Remarks',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18),
+                                  style: style,
                                   textScaleFactor: 1,
                                 ),
                               ],

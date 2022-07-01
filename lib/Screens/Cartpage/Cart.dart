@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:page_route_transition/page_route_transition.dart';
+import 'package:scale_model_cart/Models/product_model.dart';
 import 'package:scale_model_cart/Screens/Cartpage/CartCard.dart';
 
 import 'package:scale_model_cart/Screens/Cartpage/Payment/finalmain.dart';
 
 import 'package:scale_model_cart/Screens/WishList/WishList.dart';
+import 'package:scale_model_cart/constants/constants.dart';
+
+import '../../widgets/buttons.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -15,75 +20,88 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[200],
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: secondary,
+      body: SafeArea(
+        child: SingleChildScrollView(
             child: Column(
           children: [
             appbar(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            // emptyCart()
-            CartCard(
-                img:
-                    "https://www.scalemodelcart.com/usrfile/40002-18_Norev_Mercedes_Maybach_S_650_a.jpg",
-                price: 13880.00,
-                name: 'Mercedes Maybach S 650'),
-            CartCard(
-                img:
-                    "https://www.scalemodelcart.com/usrfile/40002-18_Solido_S1803004_Ford_GT40_a.jpg",
-                price: 7880.00,
-                name: 'Ford GT40'),
-            CartCard(
-                img:
-                    "https://www.scalemodelcart.com/usrfile/40002-18_Shelby_Ford_GT40_MK2_LeMans_a.jpg",
-                price: 23000.00,
-                name: 'Shelby Ford GT40 MK II LeMans '),
-            // CartCard(
-            //   img:
-            //       "https://www.scalemodelcart.com/usrfile/40002-18_CMR175_Mazda_787B_LeMans_Gachot_a.jpg",
-            //   name: "Mazda 787B LeMans",
-            //   price: 9855.00,
-            // ),
-            // CartCard(
-            //     img:
-            //         "https://www.scalemodelcart.com/usrfile/40011-18_AM_Vulcan_a.jpeg",
-            //     price: 12000.0,
-            //     name: 'Aston Martin Valcun'),
-            // CartCard(
-            //     img:
-            //         "https://www.scalemodelcart.com/usrfile/40002-18_Norev183497_Mb_AMG_GT_S_a.jpg",
-            //     price: 8655.0,
-            //     name: 'Mercedes Benz AMG GT-S'),
+            // emptyCart(),
+            Column(
+              children: List.generate(
+                3,
+                (index) => CartCard(
+                    car: cars[index],
+                    img: cars[index].img[0],
+                    price: cars[index].price,
+                    name: cars[index].name),
+              ),
+            ),
+
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            priceDetails(55040, 2500, 52090),
+            priceDetails(context),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             )
           ],
         )),
-        floatingActionButton: Container(
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: FloatingActionButton.extended(
-            elevation: 0,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PaymentMain()));
-            },
-            icon: Icon(Icons.shopping_cart_outlined),
-            backgroundColor: Colors.black,
-            foregroundColor: Colors.white,
-            label: Text(
-              "PLACE ORDER",
-              style: TextStyle(fontSize: 15),
-              textScaleFactor: 1,
+      ),
+      floatingActionButton: ThemeButton(
+        onTap: () {
+          setState(() {
+            Navigator.push(
+                context,
+                PageRouteTransitionBuilder(
+                    page: PaymentMain(),
+                    curve: Curves.easeOut,
+                    duration: Duration(milliseconds: 600),
+                    effect: TransitionEffect.bottomToTop));
+          });
+        },
+        text: "",
+        borderRadius: 22,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Icon(
+                  Icons.shopping_bag_rounded,
+                  color: secondary,
+                  size: 20,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Check Out",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: secondary,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
             ),
-          ),
+            Text(
+              "\$ 1280",
+              style: TextStyle(
+                  color: secondary, fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+          ]),
         ),
+        bgColor: accent,
+        txtColor: secondary,
+        padding: 0,
+        height: 60,
+        width: GetSize().width(context) * 0.92,
       ),
     );
   }
@@ -104,7 +122,7 @@ class _CartPageState extends State<CartPage> {
                 IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios_new,
-                    color: Colors.black,
+                    color: light,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -116,9 +134,11 @@ class _CartPageState extends State<CartPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'MY CART',
+                          'My Cart',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                              color: light,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                           textScaleFactor: 1,
                         )
                       ],
@@ -129,7 +149,7 @@ class _CartPageState extends State<CartPage> {
           IconButton(
             icon: Icon(
               Icons.favorite,
-              color: Colors.black,
+              color: accent,
             ),
             onPressed: () {
               setState(() {
@@ -139,143 +159,6 @@ class _CartPageState extends State<CartPage> {
             },
           ),
         ]),
-      ),
-    );
-  }
-
-  Widget priceDetails(double price, double discount, double total) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.05,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 0.1),
-                borderRadius: BorderRadius.all(Radius.circular(0)),
-                color: Colors.white),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'PRICE DETAILS',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey[700]),
-                    textScaleFactor: 1,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            // height: MediaQuery.of(context).size.height * 0.2,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 0.1),
-                borderRadius: BorderRadius.all(Radius.circular(0)),
-                color: Colors.white),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'PRICE (3 items)',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                        textScaleFactor: 1,
-                      ),
-                      Text(
-                        "₹ " + price.toString(),
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                        textScaleFactor: 1,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'YOU SAVE',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                        textScaleFactor: 1,
-                      ),
-                      Text(
-                        "₹ " + discount.toString(),
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                        textScaleFactor: 1,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'SHIPPING CHARGES',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                        textScaleFactor: 1,
-                      ),
-                      Text(
-                        "₹ 0",
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                        textScaleFactor: 1,
-                      ),
-                    ],
-                  ),
-                  Divider(thickness: 2, color: Color(0xffE58714)),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'TOTAL',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black),
-                          textScaleFactor: 1,
-                        ),
-                        Text(
-                          "₹ " + total.toString(),
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black),
-                          textScaleFactor: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -335,4 +218,98 @@ class _CartPageState extends State<CartPage> {
       ),
     );
   }
+}
+
+Widget priceDetails(BuildContext context, {bool? dark}) {
+  dark == null ? dark = false : null;
+  return Container(
+    width: MediaQuery.of(context).size.width * 0.95,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(0)),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Subtotal',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: dark
+                        ? secondary.withOpacity(0.6)
+                        : light.withOpacity(0.6)),
+                textScaleFactor: 1,
+              ),
+              Text(
+                "\$ 1270",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: dark ? secondary : light),
+                textScaleFactor: 1,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: GetSize().height(context) * 0.02,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Delivery Charges',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: dark
+                        ? secondary.withOpacity(0.6)
+                        : light.withOpacity(0.6)),
+                textScaleFactor: 1,
+              ),
+              Text(
+                "\$ 10",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: dark ? secondary : light),
+                textScaleFactor: 1,
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Divider(thickness: 2, color: accent),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Total',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: dark
+                        ? secondary.withOpacity(0.6)
+                        : light.withOpacity(0.6)),
+                textScaleFactor: 1,
+              ),
+              Text(
+                "\$ 1280",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: dark ? secondary : light),
+                textScaleFactor: 1,
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
 }

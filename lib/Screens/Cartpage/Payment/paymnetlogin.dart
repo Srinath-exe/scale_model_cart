@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scale_model_cart/Screens/Authentication/ForgotPassword/forgotPassword.dart';
+import 'package:scale_model_cart/constants/constants.dart';
 
 class PaymentLogin extends StatefulWidget {
   Function onLogin;
@@ -95,103 +96,19 @@ class _PaymentLoginState extends State<PaymentLogin> {
       child: Form(
         child: Column(
           children: [
-            Material(
-              elevation: 10,
-              shadowColor: emailFocus.hasFocus ? Colors.red[200] : Colors.white,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 40),
-                child: TextFormField(
-                  focusNode: emailFocus,
-                  textAlign: TextAlign.left,
-                  enabled: true,
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  onTap: () {
-                    SystemChannels.textInput.invokeMethod('TextInput.show');
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Email';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    labelText: "Email",
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 23, maxHeight: 20),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    // hintText: "Password",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
-                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                ),
-              ),
-            ),
+            ThemeTextfld(
+                errorText: "email cannot be emplty",
+                focus: emailFocus,
+                icon: Icons.mail,
+                labelText: "Email"),
             SizedBox(
               height: 15,
             ),
-            Material(
-              elevation: 10,
-              shadowColor:
-                  passwordFocus.hasFocus ? Colors.red[200] : Colors.white,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 40),
-                child: TextFormField(
-                  focusNode: passwordFocus,
-                  textAlign: TextAlign.left,
-                  enabled: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Password';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    labelText: "Password",
-
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 23, maxHeight: 20),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Icon(
-                        Icons.password,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    // hintText: "Password",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
-                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                ),
-              ),
-            ),
+            ThemeTextfld(
+                errorText: "Password cannot be emplty",
+                focus: passwordFocus,
+                icon: Icons.password_rounded,
+                labelText: "Password"),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -208,58 +125,23 @@ class _PaymentLoginState extends State<PaymentLogin> {
                   children: [
                     Text('Forgot Password?',
                         style: TextStyle(
-                            color: Colors.grey, fontWeight: FontWeight.w600)),
+                            color: secondaryLight,
+                            fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
             ),
-            Container(
-              width: width * 0.7,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  side: BorderSide(color: Color(0xff7b4775)))),
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.pressed))
-                                return Color(0xff7b4775);
-                              return Color(
-                                  0xff7b4775); // Use the component's default.
-                            },
-                          ),
-                        ),
-                        onPressed: () {
-                          widget.onLogin();
-                          setState(() {});
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => ForgotPassword()));
-                        },
-                        child: Container(
-                          width: width * 0.4,
-                          padding: const EdgeInsets.all(12.0),
-                          child: Center(
-                              child: Text(
-                            "Login",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          )),
-                        )),
-                  )
-                ],
-              ),
-            ),
+            SmallButton(
+              text: "Login",
+              onPressed: () {
+                widget.onLogin();
+                setState(() {});
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => ForgotPassword()));
+              },
+            )
           ],
         ),
       ),
@@ -298,49 +180,13 @@ class _PaymentLoginState extends State<PaymentLogin> {
             SizedBox(
               height: height * 0.02,
             ),
-            Container(
-              width: width * 0.7,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  side: BorderSide(color: Color(0xff7b4775)))),
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.pressed))
-                                return Color(0xff7b4775);
-                              return Color(
-                                  0xff7b4775); // Use the component's default.
-                            },
-                          ),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            index = 1;
-                          });
-                        },
-                        child: Container(
-                          width: width * 0.4,
-                          padding: const EdgeInsets.all(12.0),
-                          child: Center(
-                              child: Text(
-                            "Guest Login",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          )),
-                        )),
-                  )
-                ],
-              ),
+            SmallButton(
+              text: "Guest Login",
+              onPressed: () {
+                setState(() {
+                  index = 1;
+                });
+              },
             ),
           ],
         ),
@@ -369,53 +215,11 @@ class _PaymentLoginState extends State<PaymentLogin> {
             SizedBox(
               height: height * 0.04,
             ),
-            Material(
-              elevation: 10,
-              shadowColor: emailFocus.hasFocus ? Colors.red[200] : Colors.white,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 40),
-                child: TextFormField(
-                  focusNode: emailFocus,
-                  textAlign: TextAlign.left,
-                  enabled: true,
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  onTap: () {
-                    SystemChannels.textInput.invokeMethod('TextInput.show');
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Email';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    labelText: "Enter your Email",
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 23, maxHeight: 20),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    // hintText: "Password",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
-                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                ),
-              ),
-            ),
+            ThemeTextfld(
+                errorText: "email cannot be emplty",
+                focus: emailFocus,
+                icon: Icons.mail,
+                labelText: "Email"),
             GestureDetector(
               onTap: () {
                 setState(() {

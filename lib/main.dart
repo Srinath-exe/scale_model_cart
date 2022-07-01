@@ -6,6 +6,7 @@ import 'package:scale_model_cart/constants/color_schemes.g.dart';
 import 'package:scale_model_cart/constants/constants.dart';
 import 'package:statusbarz/statusbarz.dart';
 
+import 'Screens/Cartpage/Payment/finalmain.dart';
 import 'Screens/HomePage/home_screen.dart';
 import 'Screens/HomePage/main_screen.dart';
 import 'Screens/HomePage/productPage.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
             platform: TargetPlatform.iOS,
             colorScheme: lightColorScheme,
           ),
-          home: MainScreen()),
+          home: PaymentMain()),
     );
   }
 }

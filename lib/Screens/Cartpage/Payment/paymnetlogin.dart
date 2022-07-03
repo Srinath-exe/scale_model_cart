@@ -136,10 +136,6 @@ class _PaymentLoginState extends State<PaymentLogin> {
               onPressed: () {
                 widget.onLogin();
                 setState(() {});
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => ForgotPassword()));
               },
             )
           ],

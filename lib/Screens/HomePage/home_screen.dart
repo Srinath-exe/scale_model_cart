@@ -3,11 +3,13 @@ import 'dart:math';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:page_route_transition/page_route_transition.dart';
+import 'package:scale_model_cart/Models/product_model.dart';
 import 'package:scale_model_cart/Screens/Category/categoryPage.dart';
 import 'package:scale_model_cart/Screens/HomePage/productPage.dart';
 import 'package:scale_model_cart/Screens/HomePage/profilescreen.dart';
 import 'package:scale_model_cart/Screens/HomePage/search_screen.dart';
 import 'package:scale_model_cart/constants/constants.dart';
+import 'package:scale_model_cart/widgets/buttons.dart';
 
 import '../../widgets/HomeDrawer.dart';
 
@@ -95,6 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            Container(
+              width: GetSize().width(context) * 0.3,
+              child: Image.asset("assets/images/logo.png"),
+            ),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -127,21 +133,22 @@ class _HomeScreenState extends State<HomeScreen> {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          ac("SUV", 0),
-          ac("luxury", 1),
-          ac("Bikes", 2),
-          ac("Sports Car", 3),
-          ac("Super Car", 4),
+          ac("F1", 0, cars[3].img[0]),
+          ac("Super Car", 1, cars[9].img[0]),
+          ac("SUV", 2, cars[7].img[0]),
+          ac("luxury", 3, cars[1].img[0]),
+          ac("Sports Car", 4, cars[10].img[0]),
+          ac("Bikes", 5, cars[8].img[0]),
         ],
       ),
     );
   }
 
-  ac(String text, int index) {
+  ac(String text, int index, String url) {
     bool active;
     active = index == curr ? true : false;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(6.0),
       child: InkWell(
         onTap: () {
           setState(() {
@@ -164,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 Image.asset(
-                  "assets/images/image_01.png",
+                  url,
                   width: 70,
                 ),
                 // SizedBox(
@@ -276,10 +283,21 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(14.0),
       child: Container(
+        padding: EdgeInsets.all(8),
         width: GetSize().width(context),
         height: 160,
         decoration: BoxDecoration(
             color: accent, borderRadius: BorderRadius.circular(20)),
+        child: Stack(children: [
+          Positioned(
+              bottom: 0,
+              right: 0,
+              child: ThemeButton(
+                  padding: 2,
+                  height: 40,
+                  width: GetSize().width(context) * 0.3,
+                  text: "Check out"))
+        ]),
       ),
     );
   }

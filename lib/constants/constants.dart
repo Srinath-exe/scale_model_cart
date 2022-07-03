@@ -22,8 +22,14 @@ class GetSize {
 
 class SmallButton extends StatefulWidget {
   void Function()? onPressed;
+  Color? color;
   String text;
-  SmallButton({Key? key, this.onPressed, required this.text}) : super(key: key);
+  SmallButton(
+      {Key? key,
+      this.color = const Color(0xff272F3E),
+      this.onPressed,
+      required this.text})
+      : super(key: key);
 
   @override
   State<SmallButton> createState() => _SmallButtonState();
@@ -33,7 +39,7 @@ class _SmallButtonState extends State<SmallButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: GetSize().width(context) * 0.7,
+      width: GetSize().width(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -44,12 +50,12 @@ class _SmallButtonState extends State<SmallButton> {
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          side: BorderSide(color: secondaryLight))),
+                          side: BorderSide(color: widget.color!))),
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return secondary;
-                      return secondary; // Use the component's default.
+                        return widget.color!;
+                      return widget.color!; // Use the component's default.
                     },
                   ),
                 ),
@@ -61,7 +67,10 @@ class _SmallButtonState extends State<SmallButton> {
                       child: Text(
                     widget.text,
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w700),
+                        color: widget.color == const Color(0xff272F3E)
+                            ? Colors.white
+                            : Colors.black,
+                        fontWeight: FontWeight.w700),
                   )),
                 )),
           )
@@ -92,8 +101,8 @@ class _ThemeTextfldState extends State<ThemeTextfld> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 10,
-      shadowColor: widget.focus.hasFocus ? Colors.red[200] : Colors.white,
+      elevation: 4,
+      // shadowColor: widget.focus.hasFocus ? Colors.red[200] : Colors.white,
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(

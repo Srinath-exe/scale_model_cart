@@ -11,7 +11,7 @@ import '../Cartpage/Cart.dart';
 
 class MainScreen extends StatefulWidget {
   int? selectedIndex;
-  MainScreen({Key? key, this.selectedIndex = 3}) : super(key: key);
+  MainScreen({Key? key, this.selectedIndex = 0}) : super(key: key);
 
   @override
   State<MainScreen> createState() => MainScreenState();

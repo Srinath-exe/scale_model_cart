@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:page_route_transition/page_route_transition.dart';
 import 'package:scale_model_cart/Screens/Authentication/ForgotPassword/forgotPassword.dart';
+import 'package:scale_model_cart/constants/constants.dart';
+
+import '../HomePage/main_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   Function login;
@@ -185,50 +189,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.7,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  side: BorderSide(color: Color(0xff7b4775)))),
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.pressed))
-                                return Color(0xff7b4775);
-                              return Color(
-                                  0xff7b4775); // Use the component's default.
-                            },
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ForgotPassword()));
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          padding: const EdgeInsets.all(12.0),
-                          child: Center(
-                              child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          )),
-                        )),
-                  )
-                ],
-              ),
+            SizedBox(
+              height: GetSize().height(context) * 0.05,
+            ),
+            SmallButton(
+              text: "Sign Up",
+              color: accent,
+              onPressed: () {
+                setState(() {
+                  Navigator.push(
+                      context,
+                      PageRouteTransitionBuilder(
+                          page: MainScreen(),
+                          curve: Curves.easeOut,
+                          duration: Duration(milliseconds: 600),
+                          effect: TransitionEffect.bottomToTop));
+                });
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -249,8 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         Text('Login!',
                             style: TextStyle(
-                                color: Colors.blue[700],
-                                fontWeight: FontWeight.w600)),
+                                color: accent, fontWeight: FontWeight.w600)),
                       ],
                     ),
                   ),

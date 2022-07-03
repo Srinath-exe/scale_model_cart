@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:page_route_transition/page_route_transition.dart';
 import 'package:scale_model_cart/Screens/Authentication/ForgotPassword/forgotPassword.dart';
 import 'package:scale_model_cart/Screens/HomePage/home_screen.dart';
+import 'package:scale_model_cart/Screens/HomePage/main_screen.dart';
+
+import '../../constants/constants.dart';
+import '../ProductViewpage/product_detail_view.dart';
 
 class LoginScreen extends StatefulWidget {
   Function signup;
@@ -82,97 +87,29 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Form(
         child: Column(
           children: [
-            Material(
-              elevation: 10,
-              shadowColor: emailFocus.hasFocus ? Colors.red[200] : Colors.white,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 40),
-                child: TextFormField(
-                  focusNode: emailFocus,
-                  textAlign: TextAlign.left,
-                  enabled: true,
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  onTap: () {
-                    SystemChannels.textInput.invokeMethod('TextInput.show');
-                  },
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    labelText: "Email",
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 23, maxHeight: 20),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    // hintText: "Password",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
-                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                ),
-              ),
-            ),
+            ThemeTextfld(
+                errorText: "email cannot be emplty",
+                focus: emailFocus,
+                icon: Icons.mail,
+                labelText: "Email"),
             SizedBox(
               height: 15,
             ),
-            Material(
-              elevation: 10,
-              shadowColor:
-                  passwordFocus.hasFocus ? Colors.red[200] : Colors.white,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 40),
-                child: TextFormField(
-                  focusNode: passwordFocus,
-                  textAlign: TextAlign.left,
-                  enabled: true,
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    labelText: "Password",
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 23, maxHeight: 20),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Icon(
-                        Icons.password,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    // hintText: "Password",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
-                    labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                ),
-              ),
-            ),
+            ThemeTextfld(
+                errorText: "Password cannot be emplty",
+                focus: passwordFocus,
+                icon: Icons.password_rounded,
+                labelText: "Password"),
             GestureDetector(
               onTap: () {
                 setState(() {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => ForgotPassword()));
+                      PageRouteTransitionBuilder(
+                          page: ForgotPassword(),
+                          curve: Curves.easeOut,
+                          duration: Duration(milliseconds: 600),
+                          effect: TransitionEffect.topToBottom));
                 });
               },
               child: Container(
@@ -182,55 +119,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text('Forgot Password?',
                         style: TextStyle(
-                            color: Colors.grey, fontWeight: FontWeight.w600)),
+                            color: light.withOpacity(0.5),
+                            fontWeight: FontWeight.w500)),
                   ],
                 ),
               ),
             ),
-            Container(
-              width: width * 0.7,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  side: BorderSide(color: Color(0xff7b4775)))),
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.pressed))
-                                return Color(0xff7b4775);
-                              return Color(
-                                  0xff7b4775); // Use the component's default.
-                            },
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
-                        },
-                        child: Container(
-                          width: width * 0.4,
-                          padding: const EdgeInsets.all(12.0),
-                          child: Center(
-                              child: Text(
-                            "Login",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          )),
-                        )),
-                  )
-                ],
-              ),
+            SizedBox(
+              height: GetSize().height(context) * 0.05,
+            ),
+            SmallButton(
+              text: "Login",
+              color: accent,
+              onPressed: () {
+                setState(() {
+                  Navigator.push(
+                      context,
+                      PageRouteTransitionBuilder(
+                          page: MainScreen(),
+                          curve: Curves.easeOut,
+                          duration: Duration(milliseconds: 600),
+                          effect: TransitionEffect.bottomToTop));
+                });
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -251,8 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text('Sign UP!',
                             style: TextStyle(
-                                color: Colors.blue[700],
-                                fontWeight: FontWeight.w600)),
+                                color: accent, fontWeight: FontWeight.w600)),
                       ],
                     ),
                   ),

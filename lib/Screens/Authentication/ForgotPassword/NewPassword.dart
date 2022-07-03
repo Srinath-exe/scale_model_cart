@@ -1,6 +1,9 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
+import 'package:page_route_transition/page_route_transition.dart';
+import 'package:scale_model_cart/Screens/Authentication/authscreen.dart';
 import 'package:scale_model_cart/Screens/HomePage/home_screen.dart';
+import 'package:scale_model_cart/constants/constants.dart';
 
 class NewPassword extends StatefulWidget {
   @override
@@ -24,26 +27,10 @@ class _NewPasswordState extends State<NewPassword> {
   }
 
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          // appBar: AppBar(
-          //   title: Text(
-          //     '',
-          //     style: TextStyle(
-          //       fontSize: 25,
-          //       fontWeight: FontWeight.w500,
-          //       color: Colors.black,
-          //     ),
-          //   ),
-          //   backgroundColor: Colors.white,
-          //   elevation: 0,
-          //   iconTheme: IconThemeData(
-          //     color: Colors.black,
-          //   ),
-          // ),
-
-          backgroundColor: Colors.grey[200],
-          body: SingleChildScrollView(
+    return Scaffold(
+        backgroundColor: secondary,
+        body: SafeArea(
+          child: SingleChildScrollView(
             controller: _controller,
             child: Container(
               child: Padding(
@@ -65,7 +52,9 @@ class _NewPasswordState extends State<NewPassword> {
                         Text(
                           'Create new password',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                              color: accent,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -74,24 +63,24 @@ class _NewPasswordState extends State<NewPassword> {
                     ),
                     Text(
                       'Your new password must be different from the previous used Password',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: light,
+                          fontWeight: FontWeight.w400),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     ClayContainer(
                       // emboss: true,
                       depth: 25,
                       spread: 5,
-                      parentColor: Colors.grey[200],
-                      surfaceColor: Colors.white,
-                      curveType: CurveType.none,
+                      parentColor: secondary,
+                      surfaceColor: secondaryLight,
+                      curveType: CurveType.concave,
                       customBorderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
+                      color: accent,
                       height: MediaQuery.of(context).size.height * 0.3,
                       width: MediaQuery.of(context).size.width * 0.95,
-                      // decoration: BoxDecoration(
-                      //     color: Colors.grey[100],
-                      //     borderRadius: BorderRadius.circular(20)),
+
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -105,7 +94,7 @@ class _NewPasswordState extends State<NewPassword> {
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.black),
+                                      color: light),
                                 ),
                               ],
                             ),
@@ -194,7 +183,7 @@ class _NewPasswordState extends State<NewPassword> {
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.black),
+                                      color: light),
                                 ),
                               ],
                             ),
@@ -271,71 +260,26 @@ class _NewPasswordState extends State<NewPassword> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 18.0, vertical: 8),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Both Passwords must Match',
-                                  style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.03,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Material(
-                        elevation: 10,
-                        borderRadius: BorderRadius.circular(12),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        side: BorderSide(
-                                            color: Colors.transparent))),
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith<Color>(
-                                  (Set<MaterialState> states) {
-                                    if (states.contains(MaterialState.pressed))
-                                      return Color(0xff2F729B);
-                                    return Color(0xFF679EC0);
-                                  },
-                                ),
-                              ),
-                              child: Text(
-                                'Reset Password',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => HomeScreen()));
-                                });
-                              }),
-                        ),
-                      ),
+                    SmallButton(
+                      text: "Rest Password",
+                      color: accent,
+                      onPressed: (() {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              PageRouteTransitionBuilder(
+                                  page: AuthScreen(),
+                                  curve: Curves.easeOut,
+                                  duration: Duration(milliseconds: 600),
+                                  effect: TransitionEffect.bottomToTop));
+                        });
+                      }),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.04,
@@ -344,7 +288,7 @@ class _NewPasswordState extends State<NewPassword> {
                 ),
               ),
             ),
-          )),
-    );
+          ),
+        ));
   }
 }

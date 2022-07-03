@@ -1,6 +1,8 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
+import 'package:page_route_transition/page_route_transition.dart';
 import 'package:scale_model_cart/Screens/Authentication/ForgotPassword/NewPassword.dart';
+import 'package:scale_model_cart/constants/constants.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -19,10 +21,10 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: secondaryLight,
+      body: SafeArea(
+        child: SingleChildScrollView(
           controller: _controller,
           child: Container(
               height: MediaQuery.of(context).size.height,
@@ -32,23 +34,19 @@ class ForgotPasswordState extends State<ForgotPassword> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                     Container(
-                        color: Colors.white,
-                        // height: MediaQuery.of(context).size.height * 0.30,
-                        // width: MediaQuery.of(context).size.width,
+                        width: MediaQuery.of(context).size.width * 0.8,
                         child: Image.asset('assets/images/forgotpassword.png')),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           //image
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 40),
                             child: Container(
-                              color: Colors.white,
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.15,
                               child: Column(
                                 children: [
                                   SizedBox(
@@ -60,6 +58,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                                       Text("Reset password",
                                           style: TextStyle(
                                               fontSize: 26,
+                                              color: accent,
                                               fontWeight: FontWeight.w500)),
                                     ],
                                   ),
@@ -72,7 +71,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                                       Text("Forgot your password?",
                                           style: TextStyle(
                                               fontSize: 12,
-                                              color: Colors.grey[600],
+                                              color: light,
                                               fontWeight: FontWeight.w500)),
                                     ],
                                   ),
@@ -82,13 +81,11 @@ class ForgotPasswordState extends State<ForgotPassword> {
                           ),
 
                           ClayContainer(
-                              parentColor: Colors.grey[100],
+                              parentColor: secondary,
                               borderRadius: 20,
-                              depth: 20,
-                              surfaceColor: Colors.white,
-                              spread: 5,
-                              curveType: CurveType.none,
-                              color: Colors.white,
+                              surfaceColor: secondaryLight,
+                              curveType: CurveType.concave,
+                              color: accent,
                               width: MediaQuery.of(context).size.width * 0.9,
                               //height: MediaQuery.of(context).size.height ,
                               child: Column(children: [
@@ -105,11 +102,16 @@ class ForgotPasswordState extends State<ForgotPassword> {
                                                       .size
                                                       .height *
                                                   0.02),
-                                          Text("Enter your registered Email",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey,
-                                                  fontWeight: FontWeight.w600)),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                "Enter your registered Email",
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: light,
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                          ),
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Material(
@@ -171,76 +173,24 @@ class ForgotPasswordState extends State<ForgotPassword> {
                                                       .size
                                                       .height *
                                                   0.01),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.4,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.05,
-                                                child: OutlinedButton(
-                                                    child: Text(
-                                                      'Continue',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 16),
-                                                    ),
-                                                    style: OutlinedButton
-                                                        .styleFrom(
-                                                      primary: Colors.white,
-                                                      backgroundColor:
-                                                          Color(0xFFF5793CE),
-                                                      shape: const RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          10))),
-                                                    ),
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        NewPassword()));
-                                                      });
-                                                    })
-
-                                                //  OutlineButton(
-                                                //     highlightedBorderColor:
-                                                //         Colors.black,
-                                                //     borderSide: BorderSide(
-                                                //         color: Colors.black),
-                                                //     child: Text(
-                                                //       "CONTINUE",
-                                                //       textScaleFactor: 1,
-                                                //       style: TextStyle(
-                                                //         fontSize: 15,
-                                                //         color: Colors.black,
-                                                //         fontWeight:
-                                                //             FontWeight.w600,
-                                                //       ),
-                                                //     ),
-                                                //     onPressed: () {
-                                                //       setState(() {
-                                                //         Navigator.push(
-                                                //             context,
-                                                //             MaterialPageRoute(
-                                                //                 builder:
-                                                //                     (context) =>
-                                                //                         Home()));
-                                                //       });
-                                                //     }),
-
-                                                ),
-                                          ),
+                                          SmallButton(
+                                              text: "Continue",
+                                              color: accent,
+                                              onPressed: () {
+                                                setState(() {
+                                                  Navigator.push(
+                                                      context,
+                                                      PageRouteTransitionBuilder(
+                                                          page: NewPassword(),
+                                                          curve: Curves.easeOut,
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  600),
+                                                          effect:
+                                                              TransitionEffect
+                                                                  .rightToLeft));
+                                                });
+                                              }),
                                         ]))
                               ]))
                         ])

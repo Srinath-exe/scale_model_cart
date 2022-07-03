@@ -132,7 +132,8 @@ class _PaymentMainState extends State<PaymentMain> {
               padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: Text(
                 name,
-                style: TextStyle(fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500, color: secondaryLight),
               ),
             )
           ],

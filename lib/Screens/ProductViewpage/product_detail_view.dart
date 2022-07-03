@@ -311,30 +311,30 @@ class ProductScreenState extends State<ProductScreen> {
                     ],
                   ),
                 ),
-                // Positioned(
-                //     top: 0,
-                //     right: 0,
-                //     child: Container(
-                //       width: GetSize().width(context) * 0.6,
-                //       height: 160,
-                //       child: Image.asset("assets/images/offer.png"),
-                //     )),
-                // Positioned(
-                //     top: 10,
-                //     right: 0,
-                //     child: Container(
-                //       width: GetSize().width(context) * 0.6,
-                //       height: 160,
-                //       alignment: Alignment.center,
-                //       child: Text(
-                //         "15% off",
-                //         style: TextStyle(
-                //             color: secondary,
-                //             fontSize: 16,
-                //             letterSpacing: 1,
-                //             fontWeight: FontWeight.w600),
-                //       ),
-                //     ))
+                Positioned(
+                    top: 20,
+                    right: 30,
+                    child: Transform.rotate(
+                      angle: 1,
+                      child: Container(
+                        width: GetSize().width(context) * 0.3,
+                        child: Image.asset("assets/images/offer.png"),
+                      ),
+                    )),
+                Positioned(
+                    top: 65,
+                    right: 55,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "15% off",
+                        style: TextStyle(
+                            color: light,
+                            fontSize: 16,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ))
               ],
             ),
             SizedBox(

@@ -24,11 +24,14 @@ class _OrderSummaryState extends State<OrderSummary> {
         onPressed: () {
           widget.onSummary();
         },
-        backgroundColor: Colors.black,
+        backgroundColor: secondary,
         foregroundColor: Colors.white,
         label: Row(
           children: [
             Text("Next"),
+            SizedBox(
+              width: GetSize().width(context) * 0.05,
+            ),
             Icon(
               Icons.arrow_forward_ios,
               size: 15,

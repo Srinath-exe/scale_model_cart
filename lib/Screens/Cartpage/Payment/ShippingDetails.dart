@@ -22,11 +22,14 @@ class _ShippingDetailsState extends State<ShippingDetails> {
         onPressed: () {
           widget.onDetails();
         },
-        backgroundColor: Colors.black,
+        backgroundColor: secondary,
         foregroundColor: Colors.white,
         label: Row(
           children: [
             Text("Next"),
+            SizedBox(
+              width: GetSize().width(context) * 0.05,
+            ),
             Icon(
               Icons.arrow_forward_ios,
               size: 15,

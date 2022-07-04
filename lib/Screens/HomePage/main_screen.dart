@@ -18,14 +18,20 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
-  List<Widget> tabItems = [
-    HomeScreen(),
-    SearchScreen(),
-    CategoryPage(),
-    CartPage()
-  ];
   @override
   Widget build(BuildContext context) {
+    List<Widget> tabItems = [
+      HomeScreen(
+        onTap: () {
+          setState(() {
+            widget.selectedIndex = 3;
+          });
+        },
+      ),
+      SearchScreen(),
+      CategoryPage(),
+      CartPage()
+    ];
     return Scaffold(
       key: scaffoldKey,
       drawer: HomeDrawer(),

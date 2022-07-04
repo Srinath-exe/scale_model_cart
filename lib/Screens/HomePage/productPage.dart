@@ -194,7 +194,8 @@ class _ProductPageState extends State<ProductPage> {
   }
 }
 
-niceRow() {
+niceRow({int? variaton}) {
+  variaton == null ? variaton = 0 : null;
   return Column(
     children: [
       SingleChildScrollView(
@@ -203,9 +204,9 @@ niceRow() {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: List.generate(
-                cars.length,
+                cars.length - variaton,
                 (index) => ProductTile(
-                      car: cars[index],
+                      car: cars[index + variaton!],
                       scale: 0.8,
                     )).toList()),
       ),

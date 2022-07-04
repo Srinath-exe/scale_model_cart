@@ -5,16 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:page_route_transition/page_route_transition.dart';
 import 'package:scale_model_cart/Models/product_model.dart';
 import 'package:scale_model_cart/Screens/Category/categoryPage.dart';
+import 'package:scale_model_cart/Screens/HomePage/main_screen.dart';
 import 'package:scale_model_cart/Screens/HomePage/productPage.dart';
 import 'package:scale_model_cart/Screens/HomePage/profilescreen.dart';
 import 'package:scale_model_cart/Screens/HomePage/search_screen.dart';
+import 'package:scale_model_cart/Screens/WishList/WishList.dart';
 import 'package:scale_model_cart/constants/constants.dart';
 import 'package:scale_model_cart/widgets/buttons.dart';
 
 import '../../widgets/HomeDrawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  void Function()? onTap;
+  HomeScreen({Key? key, this.onTap}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -53,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             banner(),
-            prodRow("Top Deal's"),
+            prodRow("Top Deal's", 0),
           ],
         )),
       ),
@@ -66,14 +69,22 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Lorem ipsum dolor sit ,",
+            //  "Lorem ipsum dolor sit ,"
+            "Discover The World of Model Cars ,",
             style: TextStyle(
-                color: light, fontSize: 28, fontWeight: FontWeight.w600),
+                color: light, fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          SizedBox(
+            height: 2,
           ),
           Text(
-            "tincidunt cursus",
+            // "Scale Model Cars",
+            "Latest Collections",
             style: TextStyle(
-                color: accent, fontSize: 28, fontWeight: FontWeight.w600),
+                letterSpacing: 1,
+                color: accent,
+                fontSize: 28,
+                fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -153,6 +164,10 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: () {
           setState(() {
             curr = index;
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProductPage(title: text)));
           });
         },
         borderRadius: BorderRadius.circular(10),
@@ -280,23 +295,144 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   banner() {
+    tile(String url) {
+      return Container(
+        width: 80,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+            color: secondary,
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.black, width: 3)),
+        child: Image.asset(
+          url,
+          width: 60,
+          fit: BoxFit.fitWidth,
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(14.0),
       child: Container(
         padding: EdgeInsets.all(8),
         width: GetSize().width(context),
-        height: 160,
+        height: 150,
         decoration: BoxDecoration(
             color: accent, borderRadius: BorderRadius.circular(20)),
-        child: Stack(children: [
+        child: Stack(alignment: AlignmentDirectional.topStart, children: [
+          Positioned(
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    "\$ 1280 ",
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: secondary,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "Total  ",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: secondary,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            child: Stack(
+                children: List.generate(
+              3,
+              (index) => Positioned(
+                left: index * 45,
+                child: tile(
+                  cars[index].img[0],
+                ),
+              ),
+            )),
+          ),
           Positioned(
               bottom: 0,
               right: 0,
-              child: ThemeButton(
-                  padding: 2,
-                  height: 40,
-                  width: GetSize().width(context) * 0.3,
-                  text: "Check out"))
+              left: 0,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // TextButton(
+                  //   style: OutlinedButton.styleFrom(side: BorderSide()),
+                  //   onPressed: () {},
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Text(
+                  //         "View Wishlist",
+                  //         style: TextStyle(
+                  //             color: secondary,
+                  //             letterSpacing: 1,
+                  //             fontWeight: FontWeight.w600),
+                  //       ),
+                  //       Padding(
+                  //         padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  //         child: Icon(
+                  //           Icons.favorite_rounded,
+                  //           color: secondary,
+                  //         ),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  ThemeButton(
+                    padding: 2,
+                    text: "",
+                    height: 40,
+                    outlineButton: true,
+                    width: GetSize().width(context) * 0.45,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "View Wishlist",
+                          style: TextStyle(
+                              color: secondary,
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Icon(
+                            Icons.favorite_rounded,
+                            color: secondary,
+                          ),
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      setState(() {
+                        Navigator.push(
+                            context,
+                            PageRouteTransitionBuilder(
+                                page: WishList(),
+                                curve: Curves.easeOut,
+                                duration: Duration(milliseconds: 600),
+                                effect: TransitionEffect.bottomToTop));
+                      });
+                    },
+                  ),
+                  ThemeButton(
+                      padding: 2,
+                      height: 40,
+                      width: GetSize().width(context) * 0.3,
+                      text: "Check out",
+                      onTap: widget.onTap),
+                ],
+              ))
         ]),
       ),
     );

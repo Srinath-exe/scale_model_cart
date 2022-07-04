@@ -57,10 +57,10 @@ class _ThemeButtonState extends State<ThemeButton> {
             style: OutlinedButton.styleFrom(
                 backgroundColor:
                     widget.outlineButton! ? Colors.transparent : widget.bgColor,
+                side: widget.outlineButton!
+                    ? BorderSide(width: 1.5, color: widget.bgColor!)
+                    : BorderSide.none,
                 shape: RoundedRectangleBorder(
-                    side: widget.outlineButton!
-                        ? BorderSide(width: 3, color: widget.bgColor!)
-                        : BorderSide.none,
                     borderRadius: BorderRadius.circular(widget.borderRadius!)),
                 elevation: 0,
                 primary: Colors.white)),

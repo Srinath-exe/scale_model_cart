@@ -57,7 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     bottom: BorderSide(
                                       color: _authType == AuthType.login
                                           ? accent
-                                          : accent.withOpacity(0.6),
+                                          : light.withOpacity(0.6),
                                       width: 3.0,
                                     ),
                                   ),
@@ -67,7 +67,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   style: TextStyle(
                                       color: _authType == AuthType.login
                                           ? accent
-                                          : accent.withOpacity(0.6),
+                                          : light.withOpacity(0.6),
                                       fontFamily: "Nunito-Bold",
                                       fontSize: 16),
                                 ),
@@ -86,7 +86,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     bottom: BorderSide(
                                       color: _authType == AuthType.signup
                                           ? accent
-                                          : accent.withOpacity(0.6),
+                                          : light.withOpacity(0.6),
                                       width: 3.0,
                                     ),
                                   ),
@@ -96,7 +96,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   style: TextStyle(
                                       color: _authType == AuthType.signup
                                           ? accent
-                                          : accent.withOpacity(0.6),
+                                          : light.withOpacity(0.6),
                                       fontFamily: "Nunito-Bold",
                                       fontSize: 16),
                                 ),

@@ -84,11 +84,18 @@ class _WishListCardState extends State<WishListCard> {
                                   child: TextButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: secondaryLight,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
                                         onPrimary: accent, // foreground
                                       ),
-                                      child: Icon(
-                                        Icons.shopping_bag_rounded,
-                                        color: accent,
+                                      child: Stack(
+                                        children: [
+                                          Icon(
+                                            Icons.add_shopping_cart_sharp,
+                                            color: accent,
+                                          ),
+                                        ],
                                       ),
                                       onPressed: () {
                                         setState(() {

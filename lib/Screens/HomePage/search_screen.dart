@@ -44,8 +44,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
               ),
             ),
-            prodRow("Best Sellers"),
-            prodRow("Recent Search"),
+            prodRow("Best Sellers", 3),
+            prodRow("Recent Search", 6),
           ],
         ),
       )),
@@ -53,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
-prodRow(String title) {
+prodRow(String title, int vari) {
   return Column(
     children: [
       Padding(
@@ -78,7 +78,7 @@ prodRow(String title) {
           ],
         ),
       ),
-      niceRow(),
+      niceRow(variaton: vari),
     ],
   );
 }

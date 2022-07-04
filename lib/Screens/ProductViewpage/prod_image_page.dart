@@ -17,6 +17,7 @@ class ImagesScreen extends StatefulWidget {
 }
 
 class _ImagesScreenState extends State<ImagesScreen> {
+  bool fav = false;
   late PageController controller;
   late double currentPageValue;
   @override
@@ -93,6 +94,26 @@ class _ImagesScreenState extends State<ImagesScreen> {
             ),
           ),
           Positioned(
+            right: 15,
+            top: 120,
+            child: ThemeButton(
+              text: "text",
+              onTap: () {
+                setState(() {
+                  fav = !fav;
+                });
+              },
+              elevation: 10,
+              child: fav
+                  ? Icon(
+                      Icons.favorite_rounded,
+                      color: Colors.pink,
+                    )
+                  : Icon(Icons.heart_broken_rounded),
+              width: 60,
+            ),
+          ),
+          Positioned(
             top: 70,
             left: 15,
             child: Column(
@@ -165,7 +186,7 @@ class _ImagesScreenState extends State<ImagesScreen> {
             child: Column(
               children: [
                 Text(
-                  "\$ 1,500",
+                  "\$ " + widget.car.price.toString(),
                   style: TextStyle(
                       color: accent, fontSize: 32, fontWeight: FontWeight.w500),
                 ),

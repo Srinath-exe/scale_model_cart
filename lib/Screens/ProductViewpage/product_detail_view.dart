@@ -312,29 +312,75 @@ class ProductScreenState extends State<ProductScreen> {
                   ),
                 ),
                 Positioned(
-                    top: 20,
-                    right: 30,
-                    child: Transform.rotate(
-                      angle: 1,
-                      child: Container(
-                        width: GetSize().width(context) * 0.3,
-                        child: Image.asset("assets/images/offer.png"),
-                      ),
-                    )),
-                Positioned(
-                    top: 65,
-                    right: 55,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "15% off",
-                        style: TextStyle(
-                            color: light,
-                            fontSize: 16,
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ))
+                  top: 30,
+                  right: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(
+                      children: [
+                        Transform.rotate(
+                          angle: 2,
+                          child: Icon(
+                            Icons.local_offer,
+                            size: 80,
+                            color: light.withOpacity(0.5),
+                          ),
+                        ),
+                        Positioned(
+                          top: 25,
+                          right: 30,
+                          child: Transform.rotate(
+                              angle: -0.34,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "15%",
+                                    style: TextStyle(
+                                        color: secondary,
+                                        fontSize: 16,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "off",
+                                    style: TextStyle(
+                                        color: secondary,
+                                        fontSize: 12,
+                                        letterSpacing: 1,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                // Positioned(
+                //     top: 20,
+                //     right: 30,
+                //     child: Transform.rotate(
+                //       angle: 1,
+                //       child: Container(
+                //         width: GetSize().width(context) * 0.3,
+                //         child: Image.asset("assets/images/offer.png"),
+                //       ),
+                //     )),
+                // Positioned(
+                //     top: 65,
+                //     right: 55,
+                //     child: Container(
+                //       alignment: Alignment.center,
+                //       child: Text(
+                //         "15% off",
+                //         style: TextStyle(
+                //             color: light,
+                //             fontSize: 16,
+                //             letterSpacing: 1,
+                //             fontWeight: FontWeight.w600),
+                //       ),
+                //     ))
               ],
             ),
             SizedBox(
